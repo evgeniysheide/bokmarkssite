@@ -44,6 +44,13 @@ body {
   margin: 0 0 28px;
 }
 
+.page-message {
+  color: #7f8496;
+  font-size: 16px;
+  line-height: 1.4;
+  margin: -12px 0 28px;
+}
+
 .bookmarks-grid {
   display: grid;
   gap: var(--grid-gap);

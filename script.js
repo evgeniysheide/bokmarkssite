@@ -1,143 +1,17 @@
-const bookmarks = [
-  {
-    url: "https://github.com/",
-    title: "GitHub · Change is constant. GitHub keeps you ahead. · GitHub",
-  },
-  {
-    url: "https://docs.craft.do/s/evgeniysheide--9eb6fc3b-a6d1-f8b9-3e26-d8a990db4c6c/f/PF-2.0--8c18d247-97f2-ab27-17b8-f4abc326ea7b",
-    title: "Craft — A fresh take on documents",
-  },
-  {
-    url: "https://clck.ru/?ysclid=mfpvrllrzf539809578",
-    title: "Яндекс Кликер — Сокращение ссылок",
-  },
-  {
-    url: "https://uicolors.app/generate/05ffe3",
-    title: "Tailwind CSS Colors - All colors + Custom color generator",
-  },
-  {
-    url: "https://docs.google.com/document/d/1F4nzaU14enuaZ-wtBfF5zHd8dmrFytmB0JVDMKOOzG4/edit",
-    title: "Google Docs",
-  },
-  {
-    url: "https://text.ru/seo?ysclid=m8hdwjdqmh83802607",
-    title: "СЕО анализ текстов - проверка для SEO продвижения",
-  },
-  {
-    url: "https://coolors.co/contrast-checker/112a46-acc8e5",
-    title: "Color Contrast Checker - Coolors",
-  },
-  {
-    url: "https://convertio.co/ru/?ysclid=m50tcpmb86931915430",
-    title: "Convertio — Конвертер файлов",
-  },
-  {
-    url: "https://www.freepik.com/app",
-    title: "Freepik AI App - Create Images and Videos with AI",
-  },
-  {
-    url: "https://elements.envato.com/",
-    title: "Envato® | AI Tools and Unlimited Creative Assets",
-  },
-  {
-    url: "https://generator-qr.com/",
-    title: "QR Code Generator | High Quality Free QR Codes",
-  },
-  {
-    url: "https://sora.chatgpt.com/explore",
-    title: "Sora | Explore",
-  },
-  {
-    url: "https://www.recraft.ai/projects",
-    title: "Sign in to Recraft - Recraft",
-  },
-  {
-    url: "https://www.perplexity.ai/?login-source=oneTapHome&login-new=false",
-    title: "Perplexity",
-  },
-  {
-    url: "https://www.midjourney.com/explore?tab=video_top",
-    title: "Midjourney Explore",
-  },
-  {
-    url: "https://www.graphicsfuel.com/category/icons/",
-    title: "GraphicsFuel Icons",
-  },
-  {
-    url: "https://iconmonstr.com/",
-    title: "iconmonstr - Free simple icons for your next project",
-  },
-  {
-    url: "https://feathericons.com/?query=clos",
-    title: "Feather – Simply beautiful open source icons",
-  },
-  {
-    url: "https://thenounproject.com/search/icons/?q=shield",
-    title: "Search Icons | Noun Project",
-  },
-  {
-    url: "https://type.today/en?group=sans_serif",
-    title: "type.today",
-  },
-  {
-    url: "https://typetype.org/fonts/",
-    title: "All Fonts | Font styles catalogue | TypeType®",
-  },
-  {
-    url: "https://www.paratype.ru/?ysclid=mmk9t2iaxp681498707",
-    title: "Paratype",
-  },
-  {
-    url: "https://fonts.google.com/",
-    title: "Browse Fonts - Google Fonts",
-  },
-  {
-    url: "https://yoursavi.com/",
-    title: "Savi — Маркетинговые материалы для App Store",
-  },
-  {
-    url: "https://ru.pinterest.com/",
-    title: "Pinterest – Пинтерест",
-  },
-  {
-    url: "https://www.landingfolio.com/",
-    title: "The Best Landing Page Design Inspiration, Templates and More | Landingfolio",
-  },
-  {
-    url: "https://land-book.com/",
-    title: "Landbook - website design inspiration gallery",
-  },
-  {
-    url: "https://dribbble.com/",
-    title: "Dribbble - Discover the World’s Top Designers & Creative Professionals",
-  },
-  {
-    url: "https://www.awwwards.com/",
-    title: "Awwwards - Website Awards - Best Web Design Trends",
-  },
-  {
-    url: "https://www.behance.net/",
-    title: "Search Projects :: Photos, videos, logos, illustrations and branding :: Behance",
-  },
-  {
-    url: "https://yoursavi.com/",
-    title: "Savi — Маркетинговые материалы для App Store",
-  },
-];
-
 const fallbackIcon =
   "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32' fill='none'%3E%3Crect width='32' height='32' rx='10' fill='black'/%3E%3C/svg%3E";
 const hoverActionIcon =
   "data:image/svg+xml,%3Csvg preserveAspectRatio='none' width='100%25' height='100%25' overflow='visible' style='display%3A%20block%3B' viewBox='0%200%2016%2016' fill='none' xmlns='http%3A//www.w3.org/2000/svg'%3E%3Cpath d='M8.66667%207.33333L14.6667%201.33333M14.6667%201.33333H11.1042M14.6667%201.33333V4.89583' stroke='%23B8BED1' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M14.6667%208C14.6667%2011.1427%2014.6667%2012.714%2013.6904%2013.6904C12.714%2014.6667%2011.1427%2014.6667%208%2014.6667C4.8573%2014.6667%203.28595%2014.6667%202.30964%2013.6904C1.33333%2012.714%201.33333%2011.1427%201.33333%208C1.33333%204.8573%201.33333%203.28595%202.30964%202.30964C3.28595%201.33333%204.8573%201.33333%208%201.33333' stroke='%23B8BED1' stroke-linecap='round'/%3E%3C/svg%3E";
+
+const grid = document.querySelector("#bookmarks-grid");
+const message = document.querySelector("#page-message");
 
 const faviconUrl = (url) => {
   const { hostname } = new URL(url);
   return `https://icons.duckduckgo.com/ip3/${hostname}.ico`;
 };
 
-const grid = document.querySelector("#bookmarks-grid");
-
-bookmarks.forEach((bookmark) => {
+const createBookmarkCard = (bookmark) => {
   const card = document.createElement("a");
   card.className = "bookmark-card";
   card.href = bookmark.url;
@@ -169,5 +43,49 @@ bookmarks.forEach((bookmark) => {
 
   media.append(icon);
   card.append(action, media, title);
-  grid.append(card);
-});
+  return card;
+};
+
+const renderBookmarks = (bookmarks) => {
+  grid.replaceChildren(...bookmarks.map(createBookmarkCard));
+};
+
+const showMessage = (text) => {
+  message.hidden = false;
+  message.textContent = text;
+};
+
+const clearMessage = () => {
+  message.hidden = true;
+  message.textContent = "";
+};
+
+const loadBookmarks = async () => {
+  try {
+    const response = await fetch("/api/bookmarks", {
+      headers: { Accept: "application/json" },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Request failed with status ${response.status}`);
+    }
+
+    const bookmarks = await response.json();
+    const visibleBookmarks = bookmarks
+      .filter((bookmark) => bookmark.visible === true && bookmark.url && bookmark.title)
+      .sort((a, b) => {
+        const orderA = Number.isFinite(a.order) ? a.order : Number.MAX_SAFE_INTEGER;
+        const orderB = Number.isFinite(b.order) ? b.order : Number.MAX_SAFE_INTEGER;
+        return orderA - orderB;
+      });
+
+    clearMessage();
+    renderBookmarks(visibleBookmarks);
+  } catch (error) {
+    console.error("Failed to load bookmarks", error);
+    grid.replaceChildren();
+    showMessage("Не удалось загрузить закладки. Попробуйте обновить страницу позже.");
+  }
+};
+
+loadBookmarks();

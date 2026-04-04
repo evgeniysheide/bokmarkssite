@@ -1,0 +1,102 @@
+:root {
+  --page-bg: #f5f5f5;
+  --card-bg: #ffffff;
+  --text-color: #323232;
+  --card-radius: 12px;
+  --icon-radius: 8px;
+  --grid-gap: 10px;
+  --card-height: 87px;
+  --page-inline-padding: 120px;
+  --page-block-padding: 20px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  background: var(--page-bg);
+  color: var(--text-color);
+  font-family: "Raleway", sans-serif;
+}
+
+.page {
+  min-height: 100vh;
+  padding: var(--page-block-padding) var(--page-inline-padding);
+}
+
+.bookmarks-grid {
+  display: grid;
+  gap: var(--grid-gap);
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+.bookmark-card {
+  align-items: center;
+  background: var(--card-bg);
+  border-radius: var(--card-radius);
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  height: var(--card-height);
+  justify-content: center;
+  overflow: hidden;
+  padding: 16px 20px;
+  text-decoration: none;
+}
+
+.bookmark-card:focus-visible {
+  outline: 2px solid #323232;
+  outline-offset: 2px;
+}
+
+.bookmark-card__icon {
+  border-radius: var(--icon-radius);
+  display: block;
+  flex: 0 0 auto;
+  height: 24px;
+  object-fit: cover;
+  width: 24px;
+}
+
+.bookmark-card__title {
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  margin: 0;
+  overflow: hidden;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+}
+
+@media (max-width: 1100px) {
+  :root {
+    --page-inline-padding: 48px;
+  }
+}
+
+@media (max-width: 900px) {
+  .bookmarks-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  :root {
+    --page-inline-padding: 20px;
+  }
+
+  .bookmarks-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

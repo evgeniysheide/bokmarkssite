@@ -125,6 +125,9 @@ const bookmarks = [
   },
 ];
 
+const fallbackIcon =
+  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32' fill='none'%3E%3Crect width='32' height='32' rx='10' fill='black'/%3E%3C/svg%3E";
+
 const faviconUrl = (url) => {
   const { hostname } = new URL(url);
   return `https://icons.duckduckgo.com/ip3/${hostname}.ico`;
@@ -140,20 +143,29 @@ bookmarks.forEach((bookmark) => {
   card.rel = "noreferrer noopener";
   card.title = bookmark.title;
 
+  const media = document.createElement("div");
+  media.className = "bookmark-card__media";
+
   const icon = document.createElement("img");
-  icon.className = "bookmark-card__icon";
+  icon.className = "bookmark-card__favicon";
   icon.src = faviconUrl(bookmark.url);
   icon.alt = "";
   icon.loading = "lazy";
   icon.referrerPolicy = "no-referrer";
   icon.addEventListener("error", () => {
-    icon.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='8' fill='%23000'/%3E%3C/svg%3E";
+    icon.src = fallbackIcon;
   });
 
   const title = document.createElement("p");
   title.className = "bookmark-card__title";
   title.textContent = bookmark.title;
 
-  card.append(icon, title);
+  const action = document.createElement("img");
+  action.className = "bookmark-card__action";
+  action.src = "./assets/hover-arrow.svg";
+  action.alt = "";
+
+  media.append(icon);
+  card.append(action, media, title);
   grid.append(card);
 });

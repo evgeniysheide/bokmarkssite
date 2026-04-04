@@ -1,5 +1,5 @@
 const fallbackIcon =
-  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32' fill='none'%3E%3Crect width='32' height='32' rx='10' fill='black'/%3E%3C/svg%3E";
+  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none'%3E%3Crect width='16' height='16' rx='4' fill='black'/%3E%3C/svg%3E";
 const hoverActionIcon =
   "data:image/svg+xml,%3Csvg preserveAspectRatio='none' width='100%25' height='100%25' overflow='visible' style='display%3A%20block%3B' viewBox='0%200%2016%2016' fill='none' xmlns='http%3A//www.w3.org/2000/svg'%3E%3Cpath d='M8.66667%207.33333L14.6667%201.33333M14.6667%201.33333H11.1042M14.6667%201.33333V4.89583' stroke='%23B8BED1' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M14.6667%208C14.6667%2011.1427%2014.6667%2012.714%2013.6904%2013.6904C12.714%2014.6667%2011.1427%2014.6667%208%2014.6667C4.8573%2014.6667%203.28595%2014.6667%202.30964%2013.6904C1.33333%2012.714%201.33333%2011.1427%201.33333%208C1.33333%204.8573%201.33333%203.28595%202.30964%202.30964C3.28595%201.33333%204.8573%201.33333%208%201.33333' stroke='%23B8BED1' stroke-linecap='round'/%3E%3C/svg%3E";
 

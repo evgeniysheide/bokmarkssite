@@ -3,6 +3,7 @@ const fallbackIcon =
 
 const grid = document.querySelector("#bookmarks-grid");
 const message = document.querySelector("#page-message");
+const customCursor = document.querySelector("#custom-cursor");
 
 const getIconCandidates = (bookmark) => {
   const { origin, hostname } = new URL(bookmark.url);
@@ -158,6 +159,77 @@ const clearMessage = () => {
   message.textContent = "";
 };
 
+const setupCustomCursor = () => {
+  const canUseCustomCursor =
+    window.matchMedia("(hover: hover) and (pointer: fine)").matches && customCursor;
+
+  if (!canUseCustomCursor) {
+    return;
+  }
+
+  document.body.classList.add("custom-cursor-enabled");
+
+  let targetX = window.innerWidth / 2;
+  let targetY = window.innerHeight / 2;
+  let currentX = targetX;
+  let currentY = targetY;
+  let isHoveringCard = false;
+  let isPressingCard = false;
+
+  const syncCursorState = () => {
+    customCursor.classList.toggle("is-hover", isHoveringCard && !isPressingCard);
+    customCursor.classList.toggle("is-pressed", isPressingCard);
+  };
+
+  const animate = () => {
+    // Subtle interpolation keeps the cursor responsive while adding a soft trailing feel.
+    currentX += (targetX - currentX) * 0.22;
+    currentY += (targetY - currentY) * 0.22;
+
+    customCursor.style.transform = `translate3d(${currentX}px, ${currentY}px, 0) translate(-50%, -50%)`;
+    requestAnimationFrame(animate);
+  };
+
+  document.addEventListener("pointermove", (event) => {
+    targetX = event.clientX;
+    targetY = event.clientY;
+  });
+
+  document.addEventListener("pointerdown", (event) => {
+    isPressingCard = Boolean(event.target.closest(".bookmark-card"));
+    syncCursorState();
+  });
+
+  document.addEventListener("pointerup", () => {
+    isPressingCard = false;
+    syncCursorState();
+  });
+
+  document.addEventListener("pointerleave", () => {
+    customCursor.style.opacity = "0";
+  });
+
+  document.addEventListener("pointerenter", () => {
+    customCursor.style.opacity = "";
+  });
+
+  document.addEventListener("pointerover", (event) => {
+    isHoveringCard = Boolean(event.target.closest(".bookmark-card"));
+    syncCursorState();
+  });
+
+  document.addEventListener("pointerout", (event) => {
+    if (!event.relatedTarget || !event.relatedTarget.closest(".bookmark-card")) {
+      isHoveringCard = false;
+      isPressingCard = false;
+      syncCursorState();
+    }
+  });
+
+  syncCursorState();
+  requestAnimationFrame(animate);
+};
+
 const loadBookmarks = async () => {
   try {
     const response = await fetch("/api/bookmarks", {
@@ -187,3 +259,4 @@ const loadBookmarks = async () => {
 };
 
 loadBookmarks();
+setupCustomCursor();

@@ -8,20 +8,51 @@ const getTitle = (property) =>
 
 const getUrl = (property) => (property?.type === "url" ? property.url || "" : "");
 
-const getVisible = (property) =>
+const getHidden = (property) =>
   property?.type === "checkbox" ? property.checkbox === true : false;
 
 const getOrder = (property) =>
   property?.type === "number" && typeof property.number === "number" ? property.number : null;
 
+const getProperty = (properties, names) => {
+  for (const name of names) {
+    if (properties[name]) {
+      return properties[name];
+    }
+  }
+
+  return null;
+};
+
+const getFileUrl = (property) => {
+  if (property?.type !== "files" || !Array.isArray(property.files) || property.files.length === 0) {
+    return "";
+  }
+
+  const file = property.files[0];
+
+  if (file?.type === "file") {
+    return file.file?.url || "";
+  }
+
+  if (file?.type === "external") {
+    return file.external?.url || "";
+  }
+
+  return "";
+};
+
 const mapBookmark = (page) => {
   const properties = page.properties || {};
+  const hiddenProperty = getProperty(properties, ["Hidden", "hidden"]);
+  const iconProperty = getProperty(properties, ["Icon", "icon"]);
 
   return {
     title: getTitle(properties.Title),
     url: getUrl(properties.URL),
-    visible: getVisible(properties.Visible),
+    hidden: getHidden(hiddenProperty),
     order: getOrder(properties.Order),
+    icon: getFileUrl(iconProperty),
   };
 };
 

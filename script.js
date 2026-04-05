@@ -6,9 +6,36 @@ const hoverActionIcon =
 const grid = document.querySelector("#bookmarks-grid");
 const message = document.querySelector("#page-message");
 
-const faviconUrl = (url) => {
-  const { hostname } = new URL(url);
-  return `https://icons.duckduckgo.com/ip3/${hostname}.ico`;
+const getIconCandidates = (bookmark) => {
+  const { origin } = new URL(bookmark.url);
+
+  return [
+    bookmark.icon,
+    `${origin}/apple-touch-icon.png`,
+    `${origin}/favicon.svg`,
+    `${origin}/favicon.ico`,
+    fallbackIcon,
+  ].filter(Boolean);
+};
+
+const applyIconFallback = (img, sources) => {
+  let index = 0;
+
+  const loadNext = () => {
+    img.src = sources[index] || fallbackIcon;
+  };
+
+  img.addEventListener("error", () => {
+    if (index >= sources.length - 1) {
+      img.src = fallbackIcon;
+      return;
+    }
+
+    index += 1;
+    loadNext();
+  });
+
+  loadNext();
 };
 
 const createBookmarkCard = (bookmark) => {
@@ -24,13 +51,10 @@ const createBookmarkCard = (bookmark) => {
 
   const icon = document.createElement("img");
   icon.className = "bookmark-card__favicon";
-  icon.src = faviconUrl(bookmark.url);
   icon.alt = "";
   icon.loading = "lazy";
   icon.referrerPolicy = "no-referrer";
-  icon.addEventListener("error", () => {
-    icon.src = fallbackIcon;
-  });
+  applyIconFallback(icon, getIconCandidates(bookmark));
 
   const title = document.createElement("p");
   title.className = "bookmark-card__title";
@@ -72,7 +96,7 @@ const loadBookmarks = async () => {
 
     const bookmarks = await response.json();
     const visibleBookmarks = bookmarks
-      .filter((bookmark) => bookmark.visible === true && bookmark.url && bookmark.title)
+      .filter((bookmark) => bookmark.hidden !== true && bookmark.url && bookmark.title)
       .sort((a, b) => {
         const orderA = Number.isFinite(a.order) ? a.order : Number.MAX_SAFE_INTEGER;
         const orderB = Number.isFinite(b.order) ? b.order : Number.MAX_SAFE_INTEGER;

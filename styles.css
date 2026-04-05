@@ -6,7 +6,7 @@
   --title-color: #888c9b;
   --title-hover-color: #2a2c35;
   --card-radius: 12px;
-  --favicon-radius: 4px;
+  --favicon-radius: 0px;
   --page-padding-block: 32px;
   --page-padding-inline: 52px;
   --card-height: 107px;
@@ -65,7 +65,7 @@ body {
   color: inherit;
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 8px;
   height: var(--card-height);
   justify-content: flex-end;
   min-width: 0;
@@ -98,9 +98,9 @@ body {
 
 .bookmark-card__favicon {
   display: block;
-  height: 16px;
+  height: 24px;
   object-fit: cover;
-  width: 16px;
+  width: 24px;
   border-radius: var(--favicon-radius);
   overflow: hidden;
 }

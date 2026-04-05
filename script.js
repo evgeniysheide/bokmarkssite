@@ -87,6 +87,19 @@ const createCategorySection = (category, bookmarks) => {
   return section;
 };
 
+const getCategoryOrderPrefix = (category) => {
+  const match = category.match(/^(\d+)\s/);
+  return match ? Number(match[1]) : null;
+};
+
+const getCategoryDisplayName = (category) => {
+  if (category === "General") {
+    return "General";
+  }
+
+  return category.replace(/^\d+\s/, "");
+};
+
 const groupBookmarksByCategory = (bookmarks) => {
   const groups = new Map();
 
@@ -109,15 +122,34 @@ const groupBookmarksByCategory = (bookmarks) => {
       return 1;
     }
 
+    const prefixA = getCategoryOrderPrefix(a);
+    const prefixB = getCategoryOrderPrefix(b);
+
+    if (prefixA !== null && prefixB !== null && prefixA !== prefixB) {
+      return prefixA - prefixB;
+    }
+
+    if (prefixA !== null && prefixB === null) {
+      return -1;
+    }
+
+    if (prefixA === null && prefixB !== null) {
+      return 1;
+    }
+
     return a.localeCompare(b);
   });
 
-  return orderedCategories.map((category) => [category, groups.get(category)]);
+  return orderedCategories.map((category) => ({
+    key: category,
+    title: getCategoryDisplayName(category),
+    items: groups.get(category),
+  }));
 };
 
 const renderBookmarks = (bookmarks) => {
-  const sections = groupBookmarksByCategory(bookmarks).map(([category, items]) =>
-    createCategorySection(category, items)
+  const sections = groupBookmarksByCategory(bookmarks).map((category) =>
+    createCategorySection(category.title, category.items)
   );
 
   grid.replaceChildren(...sections);

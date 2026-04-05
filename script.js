@@ -11,8 +11,8 @@ const getIconCandidates = (bookmark) => {
 
   return [
     bookmark.icon,
-    `${origin}/apple-touch-icon.png`,
     `${origin}/favicon.svg`,
+    `${origin}/apple-touch-icon.png`,
     `${origin}/favicon.ico`,
     fallbackIcon,
   ].filter(Boolean);

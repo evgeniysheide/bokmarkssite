@@ -12,9 +12,9 @@ const getIconCandidates = (bookmark) => {
   return [
     bookmark.icon,
     `${origin}/favicon.svg`,
+    `https://icons.duckduckgo.com/ip3/${hostname}.ico`,
     `${origin}/apple-touch-icon.png`,
     `${origin}/favicon.ico`,
-    `https://icons.duckduckgo.com/ip3/${hostname}.ico`,
     fallbackIcon,
   ].filter(Boolean);
 };

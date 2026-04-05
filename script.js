@@ -159,6 +159,71 @@ const clearMessage = () => {
   message.textContent = "";
 };
 
+const setupSmoothScroll = () => {
+  const canUseSmoothScroll =
+    window.matchMedia("(hover: hover) and (pointer: fine)").matches &&
+    !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (!canUseSmoothScroll) {
+    return;
+  }
+
+  let targetScrollY = window.scrollY;
+  let currentScrollY = window.scrollY;
+  let animationFrameId = 0;
+
+  const maxScrollY = () =>
+    Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+
+  const animateScroll = () => {
+    // Light interpolation softens wheel scrolling without making it feel detached.
+    currentScrollY += (targetScrollY - currentScrollY) * 0.14;
+
+    if (Math.abs(targetScrollY - currentScrollY) < 0.4) {
+      currentScrollY = targetScrollY;
+    }
+
+    window.scrollTo(0, currentScrollY);
+
+    if (currentScrollY !== targetScrollY) {
+      animationFrameId = requestAnimationFrame(animateScroll);
+      return;
+    }
+
+    animationFrameId = 0;
+  };
+
+  window.addEventListener(
+    "wheel",
+    (event) => {
+      if (event.ctrlKey || event.deltaY === 0) {
+        return;
+      }
+
+      event.preventDefault();
+      targetScrollY = Math.min(Math.max(targetScrollY + event.deltaY, 0), maxScrollY());
+
+      if (!animationFrameId) {
+        currentScrollY = window.scrollY;
+        animationFrameId = requestAnimationFrame(animateScroll);
+      }
+    },
+    { passive: false }
+  );
+
+  window.addEventListener("scroll", () => {
+    if (!animationFrameId) {
+      targetScrollY = window.scrollY;
+      currentScrollY = window.scrollY;
+    }
+  });
+
+  window.addEventListener("resize", () => {
+    targetScrollY = Math.min(targetScrollY, maxScrollY());
+    currentScrollY = Math.min(currentScrollY, maxScrollY());
+  });
+};
+
 const setupCustomCursor = () => {
   const canUseCustomCursor =
     window.matchMedia("(hover: hover) and (pointer: fine)").matches && customCursor;
@@ -259,4 +324,5 @@ const loadBookmarks = async () => {
 };
 
 loadBookmarks();
+setupSmoothScroll();
 setupCustomCursor();

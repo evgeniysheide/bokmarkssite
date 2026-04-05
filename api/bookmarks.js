@@ -42,10 +42,19 @@ const getFileUrl = (property) => {
   return "";
 };
 
+const getCategory = (property) => {
+  if (property?.type !== "select") {
+    return "General";
+  }
+
+  return property.select?.name?.trim() || "General";
+};
+
 const mapBookmark = (page) => {
   const properties = page.properties || {};
   const hiddenProperty = getProperty(properties, ["Hidden", "hidden"]);
   const iconProperty = getProperty(properties, ["Icon", "icon"]);
+  const categoryProperty = getProperty(properties, ["Category", "category"]);
 
   return {
     title: getTitle(properties.Title),
@@ -53,6 +62,7 @@ const mapBookmark = (page) => {
     hidden: getHidden(hiddenProperty),
     order: getOrder(properties.Order),
     icon: getFileUrl(iconProperty),
+    category: getCategory(categoryProperty),
   };
 };
 

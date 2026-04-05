@@ -71,8 +71,56 @@ const createBookmarkCard = (bookmark) => {
   return card;
 };
 
+const createCategorySection = (category, bookmarks) => {
+  const section = document.createElement("section");
+  section.className = "bookmark-category";
+
+  const title = document.createElement("h2");
+  title.className = "bookmark-category__title";
+  title.textContent = category;
+
+  const categoryGrid = document.createElement("div");
+  categoryGrid.className = "bookmarks-grid";
+  categoryGrid.append(...bookmarks.map(createBookmarkCard));
+
+  section.append(title, categoryGrid);
+  return section;
+};
+
+const groupBookmarksByCategory = (bookmarks) => {
+  const groups = new Map();
+
+  for (const bookmark of bookmarks) {
+    const category = bookmark.category || "General";
+
+    if (!groups.has(category)) {
+      groups.set(category, []);
+    }
+
+    groups.get(category).push(bookmark);
+  }
+
+  const orderedCategories = Array.from(groups.keys()).sort((a, b) => {
+    if (a === "General") {
+      return -1;
+    }
+
+    if (b === "General") {
+      return 1;
+    }
+
+    return a.localeCompare(b);
+  });
+
+  return orderedCategories.map((category) => [category, groups.get(category)]);
+};
+
 const renderBookmarks = (bookmarks) => {
-  grid.replaceChildren(...bookmarks.map(createBookmarkCard));
+  const sections = groupBookmarksByCategory(bookmarks).map(([category, items]) =>
+    createCategorySection(category, items)
+  );
+
+  grid.replaceChildren(...sections);
 };
 
 const showMessage = (text) => {

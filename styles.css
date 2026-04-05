@@ -41,17 +41,39 @@ body {
   font-weight: 500;
   letter-spacing: -0.92px;
   line-height: normal;
-  margin: 0 0 28px;
+  margin: 0 0 36px;
 }
 
 .page-message {
   color: #7f8496;
   font-size: 16px;
   line-height: 1.4;
-  margin: -12px 0 28px;
+  margin: -20px 0 36px;
 }
 
 .bookmarks-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
+.bookmark-category {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.bookmark-category__title {
+  color: #585d6f;
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 500;
+  letter-spacing: -0.56px;
+  line-height: normal;
+  margin: 0;
+}
+
+.bookmark-category .bookmarks-grid {
   display: grid;
   gap: var(--grid-gap);
   grid-template-columns: repeat(6, minmax(0, 1fr));
@@ -66,7 +88,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  height: var(--card-height);
+  height: 111px;
   justify-content: flex-end;
   min-width: 0;
   padding: 20px 20px 12px;
@@ -147,7 +169,7 @@ body {
     --page-padding-inline: 24px;
   }
 
-  .bookmarks-grid {
+  .bookmark-category .bookmarks-grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
@@ -158,7 +180,7 @@ body {
     --page-padding-inline: 20px;
   }
 
-  .bookmarks-grid {
+  .bookmark-category .bookmarks-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }

@@ -11,6 +11,7 @@
   --page-padding-inline: 52px;
   --card-height: 107px;
   --grid-gap: 10px;
+  --card-hover-cursor: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M9.66659 1.83301C9.66659 1.55687 9.89044 1.33301 10.1666 1.33301H14.1666C14.4427 1.33301 14.6666 1.55687 14.6666 1.83301V5.83301C14.6666 6.10915 14.4427 6.33301 14.1666 6.33301C13.8904 6.33301 13.6666 6.10915 13.6666 5.83301V3.04011L9.18681 7.51989C8.99154 7.71516 8.67496 7.71516 8.4797 7.51989C8.28444 7.32463 8.28444 7.00805 8.4797 6.81279L12.9595 2.33301H10.1666C9.89044 2.33301 9.66659 2.10915 9.66659 1.83301Z' fill='%231C274C'/%3E%3Cpath d='M7.49992 1.83301C3.81802 1.83301 0.833252 4.81778 0.833252 8.49967C0.833252 12.1816 3.81802 15.1663 7.49992 15.1663C11.1818 15.1663 14.1666 12.1816 14.1666 8.49967C14.1666 8.10047 14.1315 7.70946 14.0642 7.32957C13.2835 7.27696 12.6666 6.62704 12.6666 5.83301V5.45433L9.89391 8.227C9.30813 8.81279 8.35838 8.81279 7.77259 8.227C7.1868 7.64121 7.18681 6.69147 7.77259 6.10568L10.5453 3.33301H10.1666C9.37256 3.33301 8.72263 2.71605 8.67002 1.93535C8.29013 1.8681 7.89912 1.83301 7.49992 1.83301Z' fill='%231C274C'/%3E%3C/svg%3E") 8 8;
 }
 
 * {
@@ -93,6 +94,7 @@ body {
   min-width: 0;
   padding: 20px 20px 12px;
   position: relative;
+  cursor: pointer;
   text-decoration: none;
   transition:
     background-color 140ms ease,
@@ -104,6 +106,7 @@ body {
 .bookmark-card:focus-visible {
   background: var(--card-hover-bg);
   box-shadow: 0 0 0 1px var(--card-hover-border);
+  cursor: var(--card-hover-cursor), pointer;
 }
 
 .bookmark-card:focus-visible {
@@ -146,22 +149,6 @@ body {
 .bookmark-card:hover .bookmark-card__title,
 .bookmark-card:focus-visible .bookmark-card__title {
   color: var(--title-hover-color);
-}
-
-.bookmark-card__action {
-  height: 16px;
-  opacity: 0;
-  pointer-events: none;
-  position: absolute;
-  right: 12px;
-  top: 12px;
-  transition: opacity 140ms ease;
-  width: 16px;
-}
-
-.bookmark-card:hover .bookmark-card__action,
-.bookmark-card:focus-visible .bookmark-card__action {
-  opacity: 1;
 }
 
 @media (max-width: 1180px) {

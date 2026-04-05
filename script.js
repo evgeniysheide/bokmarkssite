@@ -7,13 +7,14 @@ const grid = document.querySelector("#bookmarks-grid");
 const message = document.querySelector("#page-message");
 
 const getIconCandidates = (bookmark) => {
-  const { origin } = new URL(bookmark.url);
+  const { origin, hostname } = new URL(bookmark.url);
 
   return [
     bookmark.icon,
     `${origin}/favicon.svg`,
     `${origin}/apple-touch-icon.png`,
     `${origin}/favicon.ico`,
+    `https://icons.duckduckgo.com/ip3/${hostname}.ico`,
     fallbackIcon,
   ].filter(Boolean);
 };

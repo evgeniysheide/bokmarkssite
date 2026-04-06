@@ -5,14 +5,14 @@
   --card-hover-border: #dadde7;
   --title-color: #102643;
   --title-hover-color: #102643;
-  --card-radius: 999px;
+  --card-radius: 110px;
   --favicon-radius: 4px;
   --page-padding-block: 32px;
   --page-padding-inline: 52px;
-  --card-width: 160px;
-  --card-height: 160px;
+  --card-width: 200px;
+  --card-height: 200px;
   --category-gap: 80px;
-  --grid-gap: 10px;
+  --grid-gap: 12px;
   --page-art-height: min(270px, 18.75vw);
 }
 
@@ -57,14 +57,23 @@ body.custom-cursor-enabled * {
   border-radius: 32px;
   display: flex;
   flex-direction: column;
-  gap: 36px;
+  gap: 52px;
   left: 16px;
   overflow: auto;
   overscroll-behavior: contain;
-  padding: 32px 32px calc(var(--page-art-height) + 24px);
+  padding: 32px 32px 180px;
   position: absolute;
   right: 16px;
   top: 16px;
+}
+
+.categories-panel::after {
+  border-radius: inherit;
+  box-shadow: inset 0 -216px 120px 0 rgba(16, 38, 67, 0.18);
+  content: "";
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
 }
 
 .page-title-bar {
@@ -93,7 +102,9 @@ body.custom-cursor-enabled * {
 .bookmarks-grid {
   display: flex;
   flex-direction: column;
-  gap: 36px;
+  gap: 52px;
+  position: relative;
+  z-index: 1;
 }
 
 .bookmark-category {
@@ -104,12 +115,13 @@ body.custom-cursor-enabled * {
 }
 
 .bookmark-category__header {
-  width: 408px;
-  min-width: 408px;
-  height: 160px;
-  flex: 0 0 408px;
+  width: 428px;
+  min-width: 428px;
+  height: 200px;
+  flex: 0 0 428px;
   display: flex;
   align-items: center;
+  padding-left: 32px;
 }
 
 .bookmark-category__title {
@@ -120,6 +132,10 @@ body.custom-cursor-enabled * {
   letter-spacing: -0.64px;
   line-height: normal;
   margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
 }
 
 .bookmark-category > .bookmarks-grid {
@@ -153,21 +169,25 @@ body.custom-cursor-enabled * {
 
 .bookmark-card__inner {
   align-items: center;
-  border: 1px solid #102643;
+  border: 2px solid #99a0a9;
   border-radius: var(--card-radius);
+  background: transparent;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 24px;
   inset: 0;
   justify-content: center;
-  padding: 28px 28px 32px;
+  padding: 28px 28px 44px;
   position: absolute;
-  transition: inset 140ms ease;
+  transition:
+    background-color 140ms ease,
+    border-color 140ms ease;
 }
 
 .bookmark-card:hover .bookmark-card__inner,
 .bookmark-card:focus-visible .bookmark-card__inner {
-  inset: 6px;
+  background: #102643;
+  border-color: #102643;
 }
 
 .bookmark-card__media {
@@ -180,32 +200,32 @@ body.custom-cursor-enabled * {
 
 .bookmark-card__favicon {
   display: block;
-  height: 20px;
+  height: 24px;
   object-fit: cover;
-  width: 20px;
+  width: 24px;
   border-radius: var(--favicon-radius);
   overflow: hidden;
 }
 
 .bookmark-card__title {
   color: var(--title-color);
-  font-size: 14px;
+  font-size: 16px;
   font-style: normal;
-  font-weight: 600;
+  font-weight: 400;
   line-height: normal;
   margin: 0 0 -0.18em;
   overflow: hidden;
   padding-bottom: 0.18em;
   text-align: center;
   text-overflow: ellipsis;
-  letter-spacing: 0.14px;
+  letter-spacing: 0.16px;
   white-space: nowrap;
   width: 100%;
 }
 
 .bookmark-card:hover .bookmark-card__title,
 .bookmark-card:focus-visible .bookmark-card__title {
-  color: var(--title-hover-color);
+  color: #ffffff;
 }
 
 .custom-cursor {
@@ -244,7 +264,7 @@ body.custom-cursor-enabled .custom-cursor {
 }
 
 .custom-cursor.is-hover::before {
-  background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M14.5 2.75C14.5 2.33579 14.8358 2 15.25 2H21.25C21.6642 2 22 2.33579 22 2.75V8.75C22 9.16421 21.6642 9.5 21.25 9.5C20.8358 9.5 20.5 9.16421 20.5 8.75V4.56066L13.7803 11.2803C13.4874 11.5732 13.0126 11.5732 12.7197 11.2803C12.4268 10.9874 12.4268 10.5126 12.7197 10.2197L19.4393 3.5H15.25C14.8358 3.5 14.5 3.16421 14.5 2.75Z' fill='%231C274C'/%3E%3Cpath d='M11.25 2.75C5.72715 2.75 1.25 7.22715 1.25 12.75C1.25 18.2728 5.72715 22.75 11.25 22.75C16.7728 22.75 21.25 18.2728 21.25 12.75C21.25 12.1512 21.1974 11.5647 21.0965 10.9948C19.9254 10.9159 19 9.94104 19 8.75V8.18198L14.841 12.341C13.9623 13.2197 12.5377 13.2197 11.659 12.341C10.7803 11.4623 10.7803 10.0377 11.659 9.15901L15.818 5H15.25C14.059 5 13.0841 4.07456 13.0052 2.90352C12.4353 2.80263 11.8488 2.75 11.25 2.75Z' fill='%231C274C'/%3E%3C/svg%3E");
+  background-image: url("./assets/hover-cursor.svg");
 }
 
 .custom-cursor.is-pressed {
@@ -253,7 +273,7 @@ body.custom-cursor-enabled .custom-cursor {
 }
 
 .custom-cursor.is-pressed::before {
-  background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M12.0834 2.29199C12.0834 1.94681 12.3632 1.66699 12.7084 1.66699H17.7084C18.0536 1.66699 18.3334 1.94681 18.3334 2.29199V7.29199C18.3334 7.63717 18.0536 7.91699 17.7084 7.91699C17.3632 7.91699 17.0834 7.63717 17.0834 7.29199V3.80088L11.4837 9.4006C11.2396 9.64468 10.8439 9.64468 10.5998 9.4006C10.3557 9.15652 10.3557 8.7608 10.5998 8.51672L16.1995 2.91699H12.7084C12.3632 2.91699 12.0834 2.63717 12.0834 2.29199Z' fill='%231C274C'/%3E%3Cpath d='M9.37508 2.29199C4.77271 2.29199 1.04175 6.02295 1.04175 10.6253C1.04175 15.2277 4.77271 18.9587 9.37508 18.9587C13.9775 18.9587 17.7084 15.2277 17.7084 10.6253C17.7084 10.1263 17.6646 9.63756 17.5805 9.16269C16.6046 9.09694 15.8334 8.28453 15.8334 7.29199V6.81864L12.3676 10.2845C11.6353 11.0167 10.4482 11.0167 9.71592 10.2845C8.98369 9.55225 8.98369 8.36506 9.71592 7.63283L13.1818 4.16699H12.7084C11.7159 4.16699 10.9035 3.39579 10.8377 2.41993C10.3628 2.33585 9.87408 2.29199 9.37508 2.29199Z' fill='%231C274C'/%3E%3C/svg%3E");
+  background-image: url("./assets/pressed-cursor.svg");
 }
 
 @media (max-width: 1180px) {
@@ -264,6 +284,7 @@ body.custom-cursor-enabled .custom-cursor {
 
   .categories-panel {
     padding-left: 24px;
+    padding-bottom: 160px;
     padding-right: 24px;
   }
 
@@ -277,6 +298,7 @@ body.custom-cursor-enabled .custom-cursor {
     min-width: 0;
     height: auto;
     flex-basis: auto;
+    padding-left: 0;
   }
 
   .bookmark-category > .bookmarks-grid {
@@ -299,7 +321,7 @@ body.custom-cursor-enabled .custom-cursor {
   .categories-panel {
     gap: 28px;
     left: 12px;
-    padding: 20px 20px calc(var(--page-art-height) + 16px);
+    padding: 20px 20px 132px;
     right: 12px;
     top: 12px;
   }

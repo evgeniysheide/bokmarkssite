@@ -13,6 +13,7 @@
   --card-height: 160px;
   --category-gap: 80px;
   --grid-gap: 10px;
+  --page-art-height: min(270px, 18.75vw);
 }
 
 * {
@@ -60,34 +61,26 @@ body.custom-cursor-enabled * {
   left: 16px;
   overflow: auto;
   overscroll-behavior: contain;
-  padding: 32px 32px 180px;
+  padding: 32px 32px calc(var(--page-art-height) + 24px);
   position: absolute;
   right: 16px;
   top: 16px;
 }
 
 .page-title-bar {
-  align-items: center;
-  background: #102643;
   bottom: 0;
-  display: flex;
-  justify-content: center;
   left: 0;
-  padding: 20px;
   position: absolute;
   right: 0;
   z-index: 2;
+  line-height: 0;
+  pointer-events: none;
 }
 
-.page-title {
-  color: #ffffff;
-  font-size: 60px;
-  font-style: normal;
-  font-weight: 700;
-  letter-spacing: -1.2px;
-  line-height: normal;
-  margin: 0;
-  text-align: center;
+.page-title-art {
+  display: block;
+  height: auto;
+  width: 100%;
 }
 
 .page-message {
@@ -306,18 +299,9 @@ body.custom-cursor-enabled .custom-cursor {
   .categories-panel {
     gap: 28px;
     left: 12px;
-    padding: 20px 20px 128px;
+    padding: 20px 20px calc(var(--page-art-height) + 16px);
     right: 12px;
     top: 12px;
-  }
-
-  .page-title-bar {
-    padding: 16px 12px;
-  }
-
-  .page-title {
-    font-size: 44px;
-    letter-spacing: -0.88px;
   }
 
   .bookmark-category__title {

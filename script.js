@@ -69,6 +69,9 @@ const createCategorySection = (category, bookmarks) => {
   const section = document.createElement("section");
   section.className = "bookmark-category";
 
+  const header = document.createElement("div");
+  header.className = "bookmark-category__header";
+
   const title = document.createElement("h2");
   title.className = "bookmark-category__title";
   title.textContent = category;
@@ -77,7 +80,8 @@ const createCategorySection = (category, bookmarks) => {
   categoryGrid.className = "bookmarks-grid";
   categoryGrid.append(...bookmarks.map(createBookmarkCard));
 
-  section.append(title, categoryGrid);
+  header.append(title);
+  section.append(header, categoryGrid);
   return section;
 };
 

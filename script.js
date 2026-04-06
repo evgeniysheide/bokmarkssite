@@ -4,6 +4,7 @@ const fallbackIcon =
 const grid = document.querySelector("#bookmarks-grid");
 const message = document.querySelector("#page-message");
 const customCursor = document.querySelector("#custom-cursor");
+const categoriesPanel = document.querySelector("#categories-panel");
 
 const getIconCandidates = (bookmark) => {
   const { origin, hostname } = new URL(bookmark.url);
@@ -166,18 +167,19 @@ const clearMessage = () => {
 const setupSmoothScroll = () => {
   const canUseSmoothScroll =
     window.matchMedia("(hover: hover) and (pointer: fine)").matches &&
-    !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    !window.matchMedia("(prefers-reduced-motion: reduce)").matches &&
+    categoriesPanel;
 
   if (!canUseSmoothScroll) {
     return;
   }
 
-  let targetScrollY = window.scrollY;
-  let currentScrollY = window.scrollY;
+  let targetScrollY = categoriesPanel.scrollTop;
+  let currentScrollY = categoriesPanel.scrollTop;
   let animationFrameId = 0;
 
   const maxScrollY = () =>
-    Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+    Math.max(0, categoriesPanel.scrollHeight - categoriesPanel.clientHeight);
 
   const animateScroll = () => {
     // Light interpolation softens wheel scrolling without making it feel detached.
@@ -187,7 +189,7 @@ const setupSmoothScroll = () => {
       currentScrollY = targetScrollY;
     }
 
-    window.scrollTo(0, currentScrollY);
+    categoriesPanel.scrollTop = currentScrollY;
 
     if (currentScrollY !== targetScrollY) {
       animationFrameId = requestAnimationFrame(animateScroll);
@@ -197,7 +199,7 @@ const setupSmoothScroll = () => {
     animationFrameId = 0;
   };
 
-  window.addEventListener(
+  categoriesPanel.addEventListener(
     "wheel",
     (event) => {
       if (event.ctrlKey || event.deltaY === 0) {
@@ -208,17 +210,17 @@ const setupSmoothScroll = () => {
       targetScrollY = Math.min(Math.max(targetScrollY + event.deltaY, 0), maxScrollY());
 
       if (!animationFrameId) {
-        currentScrollY = window.scrollY;
+        currentScrollY = categoriesPanel.scrollTop;
         animationFrameId = requestAnimationFrame(animateScroll);
       }
     },
     { passive: false }
   );
 
-  window.addEventListener("scroll", () => {
+  categoriesPanel.addEventListener("scroll", () => {
     if (!animationFrameId) {
-      targetScrollY = window.scrollY;
-      currentScrollY = window.scrollY;
+      targetScrollY = categoriesPanel.scrollTop;
+      currentScrollY = categoriesPanel.scrollTop;
     }
   });
 

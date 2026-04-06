@@ -24,12 +24,14 @@ html,
 body {
   margin: 0;
   min-height: 100%;
+  height: 100%;
 }
 
 body {
-  background: var(--page-bg);
+  background: #102643;
   color: #102643;
   font-family: "Mont", "Montserrat", sans-serif;
+  overflow: hidden;
 }
 
 body.custom-cursor-enabled,
@@ -38,28 +40,57 @@ body.custom-cursor-enabled * {
 }
 
 .page {
-  min-height: 100vh;
-  padding: var(--page-padding-block) var(--page-padding-inline);
+  background: #102643;
+  height: 100vh;
+  overflow: hidden;
+  padding: 16px 16px 0;
+  position: relative;
+}
+
+.categories-panel {
+  background: var(--page-bg);
+  bottom: 0;
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 36px;
+  left: 16px;
+  overflow: auto;
+  overscroll-behavior: contain;
+  padding: 32px 32px 180px;
+  position: absolute;
+  right: 16px;
+  top: 16px;
+}
+
+.page-title-bar {
+  align-items: center;
+  background: #102643;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  left: 0;
+  padding: 20px;
+  position: absolute;
+  right: 0;
+  z-index: 2;
 }
 
 .page-title {
-  color: #102643;
+  color: #ffffff;
   font-size: 60px;
   font-style: normal;
   font-weight: 700;
   letter-spacing: -1.2px;
   line-height: normal;
   margin: 0;
+  text-align: center;
 }
 
 .page-message {
   color: rgba(16, 38, 67, 0.72);
   font-size: 16px;
   line-height: 1.4;
-  margin: -24px 0 0;
+  margin: 0;
 }
 
 .bookmarks-grid {
@@ -231,6 +262,11 @@ body.custom-cursor-enabled .custom-cursor {
     --category-gap: 40px;
   }
 
+  .categories-panel {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
   .bookmark-category {
     flex-direction: column;
     gap: 16px;
@@ -254,7 +290,19 @@ body.custom-cursor-enabled .custom-cursor {
   }
 
   .page {
+    padding: 12px 12px 0;
+  }
+
+  .categories-panel {
     gap: 28px;
+    left: 12px;
+    padding: 20px 20px 128px;
+    right: 12px;
+    top: 12px;
+  }
+
+  .page-title-bar {
+    padding: 16px 12px;
   }
 
   .page-title {

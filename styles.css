@@ -9,10 +9,10 @@
   --favicon-radius: 4px;
   --page-padding-block: 32px;
   --page-padding-inline: 52px;
-  --card-width: 171.667px;
+  --card-width: 217px;
   --card-height: 110px;
   --category-gap: 120px;
-  --category-cards-width: 899px;
+  --category-cards-width: 898px;
   --grid-gap: 10px;
 }
 
@@ -99,6 +99,8 @@ body.custom-cursor-enabled * {
   gap: var(--grid-gap);
   width: var(--category-cards-width);
   flex: 0 0 var(--category-cards-width);
+  align-content: flex-start;
+  justify-content: flex-start;
 }
 
 .bookmark-card {

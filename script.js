@@ -5,6 +5,7 @@ const grid = document.querySelector("#bookmarks-grid");
 const message = document.querySelector("#page-message");
 const customCursor = document.querySelector("#custom-cursor");
 const categoriesPanel = document.querySelector("#categories-panel");
+const page = document.querySelector(".page");
 
 const getIconCandidates = (bookmark) => {
   const { origin, hostname } = new URL(bookmark.url);
@@ -172,7 +173,8 @@ const setupSmoothScroll = () => {
   const canUseSmoothScroll =
     window.matchMedia("(hover: hover) and (pointer: fine)").matches &&
     !window.matchMedia("(prefers-reduced-motion: reduce)").matches &&
-    categoriesPanel;
+    categoriesPanel &&
+    page;
 
   if (!canUseSmoothScroll) {
     return;
@@ -180,7 +182,14 @@ const setupSmoothScroll = () => {
 
   let targetScrollY = categoriesPanel.scrollTop;
   let currentScrollY = categoriesPanel.scrollTop;
+  let targetReveal = 0;
+  let currentReveal = 0;
   let animationFrameId = 0;
+  const maxReveal = 1;
+
+  const syncReveal = () => {
+    page.style.setProperty("--bottom-reveal", currentReveal.toFixed(4));
+  };
 
   const maxScrollY = () =>
     Math.max(0, categoriesPanel.scrollHeight - categoriesPanel.clientHeight);
@@ -188,14 +197,20 @@ const setupSmoothScroll = () => {
   const animateScroll = () => {
     // Light interpolation softens wheel scrolling without making it feel detached.
     currentScrollY += (targetScrollY - currentScrollY) * 0.14;
+    currentReveal += (targetReveal - currentReveal) * 0.14;
 
     if (Math.abs(targetScrollY - currentScrollY) < 0.4) {
       currentScrollY = targetScrollY;
     }
 
-    categoriesPanel.scrollTop = currentScrollY;
+    if (Math.abs(targetReveal - currentReveal) < 0.002) {
+      currentReveal = targetReveal;
+    }
 
-    if (currentScrollY !== targetScrollY) {
+    categoriesPanel.scrollTop = currentScrollY;
+    syncReveal();
+
+    if (currentScrollY !== targetScrollY || currentReveal !== targetReveal) {
       animationFrameId = requestAnimationFrame(animateScroll);
       return;
     }
@@ -211,7 +226,19 @@ const setupSmoothScroll = () => {
       }
 
       event.preventDefault();
-      targetScrollY = Math.min(Math.max(targetScrollY + event.deltaY, 0), maxScrollY());
+
+      const atBottom =
+        targetScrollY >= maxScrollY() - 0.5 || categoriesPanel.scrollTop >= maxScrollY() - 0.5;
+      const shouldReveal = event.deltaY > 0 && atBottom;
+      const shouldHideRevealFirst = event.deltaY < 0 && targetReveal > 0;
+
+      if (shouldReveal) {
+        targetReveal = Math.min(maxReveal, targetReveal + event.deltaY / 240);
+      } else if (shouldHideRevealFirst) {
+        targetReveal = Math.max(0, targetReveal + event.deltaY / 240);
+      } else {
+        targetScrollY = Math.min(Math.max(targetScrollY + event.deltaY, 0), maxScrollY());
+      }
 
       if (!animationFrameId) {
         currentScrollY = categoriesPanel.scrollTop;
@@ -232,6 +259,8 @@ const setupSmoothScroll = () => {
     targetScrollY = Math.min(targetScrollY, maxScrollY());
     currentScrollY = Math.min(currentScrollY, maxScrollY());
   });
+
+  syncReveal();
 };
 
 const setupCustomCursor = () => {

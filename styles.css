@@ -14,6 +14,9 @@
   --category-gap: 12px;
   --grid-gap: 12px;
   --page-art-height: min(270px, 18.75vw);
+  --bottom-reveal: 0;
+  --bottom-reveal-offset: 42px;
+  --bottom-reveal-panel-offset: 50px;
 }
 
 * {
@@ -65,6 +68,8 @@ body.custom-cursor-enabled * {
   position: absolute;
   right: 16px;
   top: 16px;
+  transform: translateY(calc(var(--bottom-reveal) * -1 * var(--bottom-reveal-panel-offset)));
+  transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .page-title-bar {
@@ -75,12 +80,48 @@ body.custom-cursor-enabled * {
   z-index: 2;
   line-height: 0;
   pointer-events: none;
+  transform: translateY(calc(var(--bottom-reveal) * -1 * var(--bottom-reveal-offset)));
+  transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .page-title-art {
   display: block;
   height: auto;
   width: 100%;
+}
+
+.page-footer {
+  bottom: 14px;
+  color: #CFD8E4;
+  left: 50%;
+  margin: 0;
+  opacity: var(--bottom-reveal);
+  pointer-events: none;
+  position: absolute;
+  text-align: center;
+  transform: translateX(-50%)
+    translateY(calc((1 - var(--bottom-reveal)) * 18px));
+  transition:
+    opacity 320ms ease,
+    transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+  white-space: nowrap;
+  z-index: 3;
+}
+
+.page-footer__label {
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 300;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.page-footer__author {
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: normal;
 }
 
 .page-message {
@@ -345,5 +386,10 @@ body.custom-cursor-enabled .custom-cursor {
   .bookmark-card {
     width: var(--card-width);
     flex-basis: var(--card-width);
+  }
+
+  .page-footer,
+  .page-title-bar {
+    display: none;
   }
 }

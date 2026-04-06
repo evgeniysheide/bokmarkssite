@@ -179,12 +179,12 @@ body.custom-cursor-enabled * {
   border-radius: 50%;
   content: "";
   height: 24px;
-  left: 50%;
+  left: -12px;
   position: absolute;
-  top: 50%;
+  top: calc(100% + 12px);
   transform: translate(-50%, -50%) scale(0);
   transform-origin: center;
-  transition: transform 500ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform 1250ms cubic-bezier(0.22, 1, 0.36, 1) 200ms;
   width: 24px;
   z-index: 0;
 }
@@ -196,7 +196,7 @@ body.custom-cursor-enabled * {
 
 .bookmark-card:hover .bookmark-card__inner::before,
 .bookmark-card:focus-visible .bookmark-card__inner::before {
-  transform: translate(-50%, -50%) scale(12);
+  transform: translate(-50%, -50%) scale(18);
 }
 
 .bookmark-card__media {
@@ -232,7 +232,7 @@ body.custom-cursor-enabled * {
   text-align: center;
   text-overflow: ellipsis;
   letter-spacing: 0.16px;
-  transition: color 360ms ease 120ms;
+  transition: color 720ms ease 340ms;
   white-space: nowrap;
   width: 100%;
 }

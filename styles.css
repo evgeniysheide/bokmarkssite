@@ -12,7 +12,7 @@
   --card-width: 217px;
   --card-height: 110px;
   --category-gap: 120px;
-  --category-cards-width: 898px;
+  --category-cards-width: 900px;
   --grid-gap: 10px;
 }
 
@@ -97,7 +97,9 @@ body.custom-cursor-enabled * {
   display: flex;
   flex-wrap: wrap;
   gap: var(--grid-gap);
-  width: var(--category-cards-width);
+  width: 100%;
+  max-width: var(--category-cards-width);
+  min-width: var(--category-cards-width);
   flex: 0 0 var(--category-cards-width);
   align-content: flex-start;
   justify-content: flex-start;

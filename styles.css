@@ -95,6 +95,7 @@ body.custom-cursor-enabled * {
 
 .bookmark-category > .bookmarks-grid {
   display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
   gap: var(--grid-gap);
   width: 100%;

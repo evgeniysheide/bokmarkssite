@@ -1,15 +1,15 @@
 :root {
-  --page-bg: #f4f4f5;
+  --page-bg: #f3f4f5;
   --card-bg: #ffffff;
   --card-hover-bg: #f4f4f5;
   --card-hover-border: #dadde7;
-  --title-color: #888c9b;
-  --title-hover-color: #2a2c35;
+  --title-color: #102643;
+  --title-hover-color: #102643;
   --card-radius: 12px;
-  --favicon-radius: 0px;
+  --favicon-radius: 4px;
   --page-padding-block: 32px;
   --page-padding-inline: 52px;
-  --card-height: 107px;
+  --card-height: 106px;
   --grid-gap: 10px;
 }
 
@@ -25,8 +25,8 @@ body {
 
 body {
   background: var(--page-bg);
-  color: #111111;
-  font-family: "IBM Plex Sans", sans-serif;
+  color: #102643;
+  font-family: "Mont", "Montserrat", sans-serif;
 }
 
 body.custom-cursor-enabled,
@@ -40,17 +40,17 @@ body.custom-cursor-enabled * {
 }
 
 .page-title {
-  color: #585d6f;
+  color: #102643;
   font-size: 46px;
   font-style: normal;
-  font-weight: 500;
+  font-weight: 700;
   letter-spacing: -0.92px;
   line-height: normal;
   margin: 0 0 36px;
 }
 
 .page-message {
-  color: #7f8496;
+  color: rgba(16, 38, 67, 0.72);
   font-size: 16px;
   line-height: 1.4;
   margin: -20px 0 36px;
@@ -69,11 +69,11 @@ body.custom-cursor-enabled * {
 }
 
 .bookmark-category__title {
-  color: #585d6f;
+  color: #102643;
   font-size: 28px;
   font-style: normal;
-  font-weight: 500;
-  letter-spacing: -0.56px;
+  font-weight: 700;
+  letter-spacing: -0.28px;
   line-height: normal;
   margin: 0;
 }
@@ -93,7 +93,7 @@ body.custom-cursor-enabled * {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  height: 111px;
+  height: var(--card-height);
   justify-content: flex-end;
   min-width: 0;
   padding: 20px 20px 12px;
@@ -125,9 +125,9 @@ body.custom-cursor-enabled * {
 
 .bookmark-card__favicon {
   display: block;
-  height: 24px;
+  height: 20px;
   object-fit: cover;
-  width: 24px;
+  width: 20px;
   border-radius: var(--favicon-radius);
   overflow: hidden;
 }
@@ -137,7 +137,7 @@ body.custom-cursor-enabled * {
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
-  line-height: 1.2;
+  line-height: normal;
   margin: 0 0 -0.18em;
   overflow: hidden;
   padding-bottom: 0.18em;

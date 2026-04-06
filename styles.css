@@ -5,12 +5,12 @@
   --card-hover-border: #dadde7;
   --title-color: #102643;
   --title-hover-color: #102643;
-  --card-radius: 12px;
+  --card-radius: 999px;
   --favicon-radius: 4px;
   --page-padding-block: 32px;
   --page-padding-inline: 52px;
-  --card-width: 217px;
-  --card-height: 110px;
+  --card-width: 160px;
+  --card-height: 160px;
   --category-gap: 120px;
   --category-cards-width: 900px;
   --grid-gap: 10px;
@@ -144,41 +144,45 @@ body.custom-cursor-enabled * {
 
 .bookmark-card {
   align-items: center;
-  background: var(--card-bg);
-  border-radius: var(--card-radius);
-  box-shadow: 0 0 0 0 transparent;
   color: inherit;
   display: flex;
-  flex-direction: column;
-  gap: 8px;
   height: var(--card-height);
   width: var(--card-width);
   flex: 0 0 var(--card-width);
-  justify-content: flex-end;
+  justify-content: center;
   min-width: 0;
-  padding: 20px 20px 12px;
   position: relative;
   text-decoration: none;
-  transition:
-    background-color 140ms ease,
-    box-shadow 140ms ease,
-    color 140ms ease;
-}
-
-.bookmark-card:hover,
-.bookmark-card:focus-visible {
-  background: var(--card-hover-bg);
-  box-shadow: 0 0 0 1px var(--card-hover-border);
+  transition: color 140ms ease;
 }
 
 .bookmark-card:focus-visible {
   outline: none;
 }
 
+.bookmark-card__inner {
+  align-items: center;
+  border: 1px solid #102643;
+  border-radius: var(--card-radius);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  inset: 0;
+  justify-content: center;
+  padding: 28px 28px 32px;
+  position: absolute;
+  transition: inset 140ms ease;
+}
+
+.bookmark-card:hover .bookmark-card__inner,
+.bookmark-card:focus-visible .bookmark-card__inner {
+  inset: 6px;
+}
+
 .bookmark-card__media {
   align-items: center;
   display: flex;
-  height: 50px;
+  height: auto;
   justify-content: center;
   flex: 0 0 auto;
 }
@@ -194,16 +198,16 @@ body.custom-cursor-enabled * {
 
 .bookmark-card__title {
   color: var(--title-color);
-  font-size: 16px;
+  font-size: 14px;
   font-style: normal;
-  font-weight: 400;
+  font-weight: 600;
   line-height: normal;
   margin: 0 0 -0.18em;
   overflow: hidden;
   padding-bottom: 0.18em;
   text-align: center;
   text-overflow: ellipsis;
-  letter-spacing: 0.16px;
+  letter-spacing: 0.14px;
   white-space: nowrap;
   width: 100%;
 }

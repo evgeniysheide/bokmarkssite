@@ -47,6 +47,9 @@ const createBookmarkCard = (bookmark) => {
   card.rel = "noreferrer noopener";
   card.title = bookmark.title;
 
+  const inner = document.createElement("div");
+  inner.className = "bookmark-card__inner";
+
   const media = document.createElement("div");
   media.className = "bookmark-card__media";
 
@@ -62,7 +65,8 @@ const createBookmarkCard = (bookmark) => {
   title.textContent = bookmark.title;
 
   media.append(icon);
-  card.append(media, title);
+  inner.append(media, title);
+  card.append(inner);
   return card;
 };
 

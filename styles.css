@@ -196,7 +196,7 @@ body.custom-cursor-enabled * {
 
 .bookmark-card:hover .bookmark-card__inner::before,
 .bookmark-card:focus-visible .bookmark-card__inner::before {
-  transform: translate(-50%, -50%) scale(18);
+  transform: translate(-50%, -50%) scale(27);
 }
 
 .bookmark-card__media {

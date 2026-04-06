@@ -175,7 +175,7 @@ body.custom-cursor-enabled * {
   overflow: hidden;
   padding: 28px 28px 32px;
   position: absolute;
-  transition: border-color 900ms cubic-bezier(0.16, 1, 0.3, 1) 120ms;
+  transition: border-color 1200ms cubic-bezier(0.4, 0, 0.2, 1) 120ms;
 }
 
 .bookmark-card__inner::before {
@@ -188,7 +188,7 @@ body.custom-cursor-enabled * {
   top: calc(100% + 41px);
   transform: translate(-50%, -50%) scale(0);
   transform-origin: center;
-  transition: transform 1800ms cubic-bezier(0.12, 0.88, 0.24, 1) 220ms;
+  transition: transform 1800ms cubic-bezier(0.4, 0, 0.2, 1) 220ms;
   width: 69px;
   z-index: 0;
 }
@@ -236,7 +236,7 @@ body.custom-cursor-enabled * {
   text-align: center;
   text-overflow: ellipsis;
   letter-spacing: 0.14px;
-  transition: color 1100ms ease 420ms;
+  transition: color 1200ms cubic-bezier(0.4, 0, 0.2, 1) 420ms;
   white-space: nowrap;
   width: 100%;
 }

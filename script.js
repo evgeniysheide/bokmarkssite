@@ -185,10 +185,19 @@ const setupSmoothScroll = () => {
   let targetReveal = 0;
   let currentReveal = 0;
   let animationFrameId = 0;
+  let revealReady = false;
+  let revealReadyTimer = 0;
   const maxReveal = 1;
 
   const syncReveal = () => {
     page.style.setProperty("--bottom-reveal", currentReveal.toFixed(4));
+  };
+
+  const armRevealAfterWheelSettles = () => {
+    clearTimeout(revealReadyTimer);
+    revealReadyTimer = window.setTimeout(() => {
+      revealReady = targetScrollY >= maxScrollY() - 0.5 && targetReveal === 0;
+    }, 220);
   };
 
   const maxScrollY = () =>
@@ -229,15 +238,23 @@ const setupSmoothScroll = () => {
 
       const atBottom =
         targetScrollY >= maxScrollY() - 0.5 || categoriesPanel.scrollTop >= maxScrollY() - 0.5;
-      const shouldReveal = event.deltaY > 0 && atBottom;
+      const shouldReveal = event.deltaY > 0 && atBottom && revealReady;
       const shouldHideRevealFirst = event.deltaY < 0 && targetReveal > 0;
 
       if (shouldReveal) {
         targetReveal = Math.min(maxReveal, targetReveal + event.deltaY / 240);
       } else if (shouldHideRevealFirst) {
         targetReveal = Math.max(0, targetReveal + event.deltaY / 240);
+        revealReady = targetReveal === 0 && targetScrollY >= maxScrollY() - 0.5;
       } else {
+        revealReady = false;
         targetScrollY = Math.min(Math.max(targetScrollY + event.deltaY, 0), maxScrollY());
+
+        if (event.deltaY > 0 && targetScrollY >= maxScrollY() - 0.5) {
+          armRevealAfterWheelSettles();
+        } else {
+          clearTimeout(revealReadyTimer);
+        }
       }
 
       if (!animationFrameId) {

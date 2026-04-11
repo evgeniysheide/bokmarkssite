@@ -243,7 +243,9 @@ const setupCustomCursor = () => {
     return;
   }
 
+  document.documentElement.style.cursor = "none";
   document.body.classList.add("custom-cursor-enabled");
+  document.body.style.cursor = "none";
 
   let targetX = window.innerWidth / 2;
   let targetY = window.innerHeight / 2;

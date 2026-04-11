@@ -34,13 +34,6 @@ body {
   overflow: hidden;
 }
 
-html.custom-cursor-enabled,
-html.custom-cursor-enabled *,
-body.custom-cursor-enabled,
-body.custom-cursor-enabled * {
-  cursor: none !important;
-}
-
 .page {
   background: #102643;
   height: 100vh;
@@ -294,6 +287,20 @@ body.custom-cursor-enabled .custom-cursor {
 
   .bookmark-category > .bookmarks-grid {
     width: 100%;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  html,
+  body,
+  body *,
+  a,
+  button,
+  input,
+  textarea,
+  select,
+  [role="button"] {
+    cursor: none !important;
   }
 }
 

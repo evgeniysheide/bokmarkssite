@@ -14,9 +14,6 @@
   --category-gap: 12px;
   --grid-gap: 12px;
   --page-art-height: min(270px, 18.75vw);
-  --bottom-reveal: 0;
-  --bottom-reveal-offset: 42px;
-  --bottom-reveal-panel-offset: 50px;
 }
 
 * {
@@ -68,8 +65,6 @@ body.custom-cursor-enabled * {
   position: absolute;
   right: 16px;
   top: 16px;
-  transform: translateY(calc(var(--bottom-reveal) * -1 * var(--bottom-reveal-panel-offset)));
-  transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .page-title-bar {
@@ -80,259 +75,12 @@ body.custom-cursor-enabled * {
   z-index: 2;
   line-height: 0;
   pointer-events: none;
-  transform: translateY(calc(var(--bottom-reveal) * -1 * var(--bottom-reveal-offset)));
-  transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .page-title-art {
   display: block;
   height: auto;
   width: 100%;
-}
-
-.page-footer {
-  bottom: 14px;
-  color: #CFD8E4;
-  left: 50%;
-  margin: 0;
-  opacity: var(--bottom-reveal);
-  pointer-events: none;
-  position: absolute;
-  text-align: center;
-  transform: translateX(-50%)
-    translateY(calc((1 - var(--bottom-reveal)) * 18px));
-  transition:
-    opacity 320ms ease,
-    transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
-  white-space: nowrap;
-  z-index: 3;
-}
-
-.page-footer__label {
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 300;
-  letter-spacing: 0;
-  line-height: normal;
-}
-
-.page-footer__author {
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 600;
-  letter-spacing: 0;
-  line-height: normal;
-}
-
-.page-message {
-  color: rgba(16, 38, 67, 0.72);
-  font-size: 16px;
-  line-height: 1.4;
-  margin: 0;
-}
-
-.bookmarks-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 64px;
-  position: relative;
-  z-index: 1;
-}
-
-.bookmark-category {
-  display: flex;
-  flex-direction: column;
-  gap: var(--category-gap);
-  align-items: center;
-  width: 100%;
-}
-
-.bookmark-category__header {
-  width: 100%;
-  min-width: 0;
-  height: auto;
-  flex: 0 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding-left: 0;
-}
-
-.bookmark-category__title {
-  color: #102643;
-  font-size: 64px;
-  font-style: normal;
-  font-weight: 700;
-  letter-spacing: -0.64px;
-  line-height: normal;
-  margin: 0;
-  overflow: hidden;
-  text-align: center;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  width: 100%;
-}
-
-.bookmark-category > .bookmarks-grid {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  column-gap: var(--grid-gap);
-  row-gap: 4px;
-  flex: 0 0 auto;
-  min-width: 100%;
-  align-content: flex-start;
-  justify-content: center;
-}
-
-.bookmark-card {
-  align-items: center;
-  color: inherit;
-  display: flex;
-  height: var(--card-height);
-  width: var(--card-width);
-  flex: 0 0 var(--card-width);
-  justify-content: center;
-  min-width: 0;
-  position: relative;
-  text-decoration: none;
-  transition: color 140ms ease;
-}
-
-.bookmark-card:focus-visible {
-  outline: none;
-}
-
-.bookmark-card__inner {
-  align-items: center;
-  border: 1px solid #99a0a9;
-  border-radius: var(--card-radius);
-  background: transparent;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  inset: 0;
-  justify-content: center;
-  overflow: hidden;
-  padding: 28px 28px 32px;
-  position: absolute;
-  transition: border-color 1200ms cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.bookmark-card__inner::before {
-  background: #102643;
-  border-radius: 50%;
-  content: "";
-  height: 69px;
-  left: -41px;
-  position: absolute;
-  top: calc(100% + 41px);
-  transform: translate(-50%, -50%) scale(0);
-  transform-origin: center;
-  transition: transform 1800ms cubic-bezier(0.4, 0, 0.2, 1);
-  width: 69px;
-  z-index: 0;
-}
-
-.bookmark-card:hover .bookmark-card__inner,
-.bookmark-card:focus-visible .bookmark-card__inner {
-  border-color: #102643;
-}
-
-.bookmark-card:hover .bookmark-card__inner::before,
-.bookmark-card:focus-visible .bookmark-card__inner::before {
-  transform: translate(-50%, -50%) scale(27);
-}
-
-.bookmark-card__media {
-  align-items: center;
-  display: flex;
-  height: auto;
-  position: relative;
-  z-index: 1;
-  justify-content: center;
-  flex: 0 0 auto;
-}
-
-.bookmark-card__favicon {
-  display: block;
-  height: 24px;
-  object-fit: cover;
-  width: 24px;
-  border-radius: var(--favicon-radius);
-  overflow: hidden;
-}
-
-.bookmark-card__title {
-  color: var(--title-color);
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: normal;
-  margin: 0 0 -0.18em;
-  overflow: hidden;
-  padding-bottom: 0.18em;
-  position: relative;
-  z-index: 1;
-  text-align: center;
-  text-overflow: ellipsis;
-  letter-spacing: 0.14px;
-  transition: color 1200ms cubic-bezier(0.4, 0, 0.2, 1);
-  white-space: nowrap;
-  width: 100%;
-}
-
-.bookmark-card:hover .bookmark-card__title,
-.bookmark-card:focus-visible .bookmark-card__title {
-  color: #ffffff;
-}
-
-.custom-cursor {
-  height: 16px;
-  left: 0;
-  opacity: 0;
-  pointer-events: none;
-  position: fixed;
-  top: 0;
-  transform: translate3d(-100px, -100px, 0);
-  transform-origin: center;
-  transition:
-    opacity 120ms ease,
-    width 160ms ease,
-    height 160ms ease;
-  width: 16px;
-  z-index: 9999;
-}
-
-.custom-cursor::before {
-  background: center / contain no-repeat
-    url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='8.5' cy='8.5' r='6.5' fill='%231C274C'/%3E%3C/svg%3E");
-  content: "";
-  display: block;
-  height: 100%;
-  width: 100%;
-}
-
-body.custom-cursor-enabled .custom-cursor {
-  opacity: 1;
-}
-
-.custom-cursor.is-hover {
-  height: 24px;
-  width: 24px;
-}
-
-.custom-cursor.is-hover::before {
-  background-image: url("./assets/hover-cursor.svg");
-}
-
-.custom-cursor.is-pressed {
-  height: 20px;
-  width: 20px;
-}
-
-.custom-cursor.is-pressed::before {
-  background-image: url("./assets/pressed-cursor.svg");
 }
 
 @media (max-width: 1180px) {
@@ -388,7 +136,6 @@ body.custom-cursor-enabled .custom-cursor {
     flex-basis: var(--card-width);
   }
 
-  .page-footer,
   .page-title-bar {
     display: none;
   }

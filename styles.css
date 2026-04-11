@@ -175,32 +175,10 @@ body.custom-cursor-enabled * {
   overflow: hidden;
   padding: 28px 28px 32px;
   position: absolute;
-  transition: border-color 500ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .bookmark-card__inner::before {
-  background: #102643;
-  border-radius: 50%;
-  content: "";
-  height: 69px;
-  left: -41px;
-  position: absolute;
-  top: calc(100% + 41px);
-  transform: translate(-50%, -50%) scale(0);
-  transform-origin: center;
-  transition: transform 1250ms cubic-bezier(0.05, 0.9, 0.3, 1) 200ms;
-  width: 69px;
-  z-index: 0;
-}
-
-.bookmark-card:hover .bookmark-card__inner,
-.bookmark-card:focus-visible .bookmark-card__inner {
-  border-color: #102643;
-}
-
-.bookmark-card:hover .bookmark-card__inner::before,
-.bookmark-card:focus-visible .bookmark-card__inner::before {
-  transform: translate(-50%, -50%) scale(27);
+  content: none;
 }
 
 .bookmark-card__media {
@@ -236,14 +214,13 @@ body.custom-cursor-enabled * {
   text-align: center;
   text-overflow: ellipsis;
   letter-spacing: 0.14px;
-  transition: color 720ms ease 340ms;
   white-space: nowrap;
   width: 100%;
 }
 
 .bookmark-card:hover .bookmark-card__title,
 .bookmark-card:focus-visible .bookmark-card__title {
-  color: #ffffff;
+  color: var(--title-color);
 }
 
 .custom-cursor {

@@ -7,8 +7,6 @@
   --line-strong: #c9c9dd;
   --card-bg: #ffffff;
   --radius-smooth: 16px;
-  --category-squircle-mask: url("data:image/svg+xml,%3Csvg preserveAspectRatio='none' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='black' d='M22 0H78C91 0 100 9 100 22V78C100 91 91 100 78 100H22C9 100 0 91 0 78V22C0 9 9 0 22 0Z'/%3E%3C/svg%3E");
-  --favicon-squircle-mask: url("data:image/svg+xml,%3Csvg preserveAspectRatio='none' viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='black' d='M9 0H23C28.25 0 32 3.75 32 9V23C32 28.25 28.25 32 23 32H9C3.75 32 0 28.25 0 23V9C0 3.75 3.75 0 9 0Z'/%3E%3C/svg%3E");
   --page-padding-block: 44px;
   --page-padding-inline: 52px;
   --layout-gap: 40px;
@@ -116,15 +114,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 24px;
-  -webkit-mask-image: var(--category-squircle-mask);
-  -webkit-mask-repeat: no-repeat;
-  -webkit-mask-size: 100% 100%;
-  mask-image: var(--category-squircle-mask);
-  mask-mode: alpha;
-  mask-repeat: no-repeat;
-  mask-size: 100% 100%;
   min-width: 0;
-  overflow: hidden;
   padding: 24px 28px 16px;
   width: 100%;
 }
@@ -173,19 +163,12 @@ body {
 
 .bookmark-row__favicon-container {
   align-items: center;
-  border: 1px solid var(--line-strong);
+  background: var(--page-bg);
   border-radius: 8px;
   display: flex;
   flex: 0 0 32px;
   height: 32px;
   justify-content: center;
-  -webkit-mask-image: var(--favicon-squircle-mask);
-  -webkit-mask-repeat: no-repeat;
-  -webkit-mask-size: 100% 100%;
-  mask-image: var(--favicon-squircle-mask);
-  mask-mode: alpha;
-  mask-repeat: no-repeat;
-  mask-size: 100% 100%;
   width: 32px;
 }
 

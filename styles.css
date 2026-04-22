@@ -6,7 +6,7 @@
   --line: #e3e3ef;
   --line-strong: #c9c9dd;
   --card-bg: #ffffff;
-  --radius-smooth: 20px;
+  --radius-smooth: 16px;
   --page-padding-block: 44px;
   --page-padding-inline: 52px;
   --layout-gap: 40px;
@@ -163,7 +163,7 @@ body {
 
 .bookmark-row__favicon-container {
   align-items: center;
-  border: 1px solid var(--line);
+  border: 1px solid var(--line-strong);
   border-radius: 8px;
   display: flex;
   flex: 0 0 32px;

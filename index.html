@@ -12,22 +12,23 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500&family=Montserrat:wght@400;500&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
     <main class="page">
-      <section class="categories-panel" id="categories-panel" aria-label="Список категорий">
-        <p class="page-message" id="page-message" hidden></p>
-        <section class="bookmarks-grid" id="bookmarks-grid" aria-label="Список закладок"></section>
-      </section>
-      <div class="page-title-bar">
-        <img class="page-title-art" src="./assets/vector.svg" alt="" aria-hidden="true" />
-      </div>
+      <header class="page-header">
+        <div class="page-heading">
+          <h1 class="page-title">Bookmarks</h1>
+          <span class="page-count" id="bookmarks-count">0</span>
+        </div>
+        <div class="search-box" aria-hidden="true">Search</div>
+      </header>
+      <p class="page-message" id="page-message" hidden></p>
+      <section class="categories-grid" id="categories-grid" aria-label="Список категорий"></section>
     </main>
-    <div class="custom-cursor" id="custom-cursor" aria-hidden="true"></div>
     <script src="./script.js"></script>
   </body>
 </html>

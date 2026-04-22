@@ -1,19 +1,16 @@
 :root {
-  --page-bg: #f3f4f5;
+  --page-bg: #f5f5f7;
+  --text-primary: #102643;
+  --text-secondary: #808094;
+  --text-body: #1d1d1f;
+  --line: #e3e3ef;
+  --line-strong: #c9c9dd;
   --card-bg: #ffffff;
-  --card-hover-bg: #f4f4f5;
-  --card-hover-border: #dadde7;
-  --title-color: #102643;
-  --title-hover-color: #102643;
-  --card-radius: 110px;
-  --favicon-radius: 4px;
-  --page-padding-block: 32px;
+  --radius-smooth: 20px;
+  --page-padding-block: 44px;
   --page-padding-inline: 52px;
-  --card-width: 160px;
-  --card-height: 160px;
-  --category-gap: 12px;
-  --grid-gap: 12px;
-  --page-art-height: min(270px, 18.75vw);
+  --layout-gap: 40px;
+  --category-gap: 16px;
 }
 
 * {
@@ -24,58 +21,69 @@ html,
 body {
   margin: 0;
   min-height: 100%;
-  height: 100%;
 }
 
 body {
-  background: #102643;
-  color: #102643;
-  font-family: "Mont", "Montserrat", sans-serif;
-  overflow: hidden;
+  background: var(--page-bg);
+  color: var(--text-primary);
+  font-family: "Geist", "Montserrat", sans-serif;
 }
 
 .page {
-  background: #102643;
-  height: 100vh;
-  overflow: hidden;
-  padding: 16px 16px 0;
-  position: relative;
-}
-
-.categories-panel {
-  background-color: var(--page-bg);
-  background-image: url("./assets/noise.png");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  bottom: 0;
-  border-radius: 32px;
   display: flex;
   flex-direction: column;
-  gap: 64px;
-  left: 16px;
-  overflow: auto;
-  overscroll-behavior: contain;
-  padding: 60px 52px 300px;
-  position: absolute;
-  right: 16px;
-  top: 16px;
+  gap: var(--layout-gap);
+  min-height: 100vh;
+  padding: var(--page-padding-block) var(--page-padding-inline);
 }
 
-.page-title-bar {
-  bottom: 0;
-  left: 0;
-  position: absolute;
-  right: 0;
-  z-index: 2;
-  line-height: 0;
-  pointer-events: none;
-}
-
-.page-title-art {
-  display: block;
-  height: auto;
+.page-header {
+  align-items: flex-end;
+  display: flex;
+  gap: 32px;
+  justify-content: space-between;
   width: 100%;
+}
+
+.page-heading {
+  align-items: flex-start;
+  display: flex;
+  flex: 1 1 auto;
+  gap: 16px;
+  min-width: 0;
+}
+
+.page-title {
+  color: var(--text-primary);
+  font-size: 50px;
+  font-weight: 500;
+  letter-spacing: -0.5px;
+  line-height: 1;
+  margin: 0;
+}
+
+.page-count {
+  color: var(--text-secondary);
+  font-size: 24px;
+  font-weight: 500;
+  letter-spacing: -0.48px;
+  line-height: 1;
+  margin-top: 5px;
+}
+
+.search-box {
+  align-items: center;
+  border: 1px solid var(--line-strong);
+  border-radius: 16px;
+  color: var(--text-secondary);
+  display: flex;
+  flex: 0 0 322px;
+  font-size: 16px;
+  font-weight: 400;
+  height: 45px;
+  letter-spacing: 0.32px;
+  line-height: 1;
+  padding: 12px 20px;
 }
 
 .page-message {
@@ -85,275 +93,160 @@ body {
   margin: 0;
 }
 
-.bookmarks-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 64px;
-  position: relative;
-  z-index: 1;
-}
-
-.bookmark-category {
-  display: flex;
-  flex-direction: column;
+.categories-grid {
+  align-items: start;
+  display: grid;
   gap: var(--category-gap);
-  align-items: center;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   width: 100%;
 }
 
-.bookmark-category__header {
-  width: 100%;
-  min-width: 0;
-  height: auto;
-  flex: 0 0 auto;
+.category-card {
+  background: var(--card-bg);
+  border-radius: var(--radius-smooth);
   display: flex;
-  align-items: center;
-  justify-content: center;
-  padding-left: 0;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 0;
+  padding: 24px 28px 16px;
 }
 
-.bookmark-category__title {
-  color: #102643;
-  font-size: 64px;
-  font-style: normal;
-  font-weight: 700;
-  letter-spacing: -0.64px;
-  line-height: normal;
+.category-card__title {
+  color: var(--text-primary);
+  font-size: 24px;
+  font-weight: 500;
+  letter-spacing: -0.12px;
+  line-height: 1;
   margin: 0;
   overflow: hidden;
-  text-align: center;
   text-overflow: ellipsis;
   white-space: nowrap;
-  width: 100%;
 }
 
-.bookmark-category > .bookmarks-grid {
+.category-card__list {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  column-gap: var(--grid-gap);
-  row-gap: 4px;
-  flex: 0 0 auto;
-  min-width: 100%;
-  align-content: flex-start;
-  justify-content: center;
+  flex-direction: column;
+  overflow: hidden;
+  padding-left: 3px;
 }
 
-.bookmark-card {
+.bookmark-row {
   align-items: center;
   color: inherit;
   display: flex;
-  height: var(--card-height);
-  width: var(--card-width);
-  flex: 0 0 var(--card-width);
-  justify-content: center;
+  gap: 12px;
   min-width: 0;
-  position: relative;
   text-decoration: none;
-  transition: color 140ms ease;
+  width: 100%;
 }
 
-.bookmark-card:focus-visible {
-  outline: none;
+.bookmark-row:focus-visible {
+  border-radius: 8px;
+  outline: 2px solid rgba(16, 38, 67, 0.25);
+  outline-offset: 2px;
 }
 
-.bookmark-card__inner {
-  align-items: center;
-  border: 1px solid #99a0a9;
-  border-radius: var(--card-radius);
-  background: transparent;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  inset: 0;
-  justify-content: center;
-  overflow: hidden;
-  padding: 28px 28px 32px;
-  position: absolute;
-}
-
-.bookmark-card__inner::before {
-  content: none;
-}
-
-.bookmark-card__media {
-  align-items: center;
-  display: flex;
-  height: auto;
-  position: relative;
-  z-index: 1;
-  justify-content: center;
-  flex: 0 0 auto;
-}
-
-.bookmark-card__favicon {
+.bookmark-row__favicon {
+  border-radius: 4px;
   display: block;
+  flex: 0 0 24px;
   height: 24px;
   object-fit: cover;
-  width: 24px;
-  border-radius: var(--favicon-radius);
   overflow: hidden;
+  width: 24px;
 }
 
-.bookmark-card__title {
-  color: var(--title-color);
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: normal;
-  margin: 0 0 -0.18em;
+.bookmark-row__content {
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  flex: 1 1 auto;
+  gap: 12px;
+  min-width: 0;
+  padding: 10px 0;
+}
+
+.bookmark-row:last-child .bookmark-row__content {
+  border-bottom-color: transparent;
+}
+
+.bookmark-row__title {
+  color: var(--text-body);
+  flex: 1 1 auto;
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0.32px;
+  line-height: 1.2;
+  min-width: 0;
   overflow: hidden;
-  padding-bottom: 0.18em;
-  position: relative;
-  z-index: 1;
-  text-align: center;
   text-overflow: ellipsis;
-  letter-spacing: 0.14px;
+  transition: color 160ms ease;
   white-space: nowrap;
-  width: 100%;
 }
 
-.bookmark-card:hover .bookmark-card__title,
-.bookmark-card:focus-visible .bookmark-card__title {
-  color: var(--title-color);
-}
-
-.custom-cursor {
+.bookmark-row__action {
+  background: center / contain no-repeat url("./assets/bookmark-hover-icon.svg");
+  flex: 0 0 16px;
   height: 16px;
-  left: 0;
   opacity: 0;
-  pointer-events: none;
-  position: fixed;
-  top: 0;
-  transform: translate3d(-100px, -100px, 0);
-  transform-origin: center;
-  transition:
-    opacity 120ms ease,
-    width 160ms ease,
-    height 160ms ease;
+  transition: opacity 160ms ease;
   width: 16px;
-  z-index: 9999;
 }
 
-.custom-cursor::before {
-  background: center / contain no-repeat
-    url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='8.5' cy='8.5' r='6.5' fill='%231C274C'/%3E%3C/svg%3E");
-  content: "";
-  display: block;
-  height: 100%;
-  width: 100%;
+.bookmark-row:hover .bookmark-row__title,
+.bookmark-row:focus-visible .bookmark-row__title {
+  color: var(--text-secondary);
 }
 
-body.custom-cursor-enabled .custom-cursor {
+.bookmark-row:hover .bookmark-row__action,
+.bookmark-row:focus-visible .bookmark-row__action {
   opacity: 1;
-}
-
-.custom-cursor.is-hover {
-  height: 24px;
-  width: 24px;
-}
-
-.custom-cursor.is-hover::before {
-  background-image: url("./assets/hover-cursor.svg");
-}
-
-.custom-cursor.is-pressed {
-  height: 20px;
-  width: 20px;
-}
-
-.custom-cursor.is-pressed::before {
-  background-image: url("./assets/pressed-cursor.svg");
 }
 
 @media (max-width: 1180px) {
   :root {
-    --page-padding-inline: 24px;
-    --category-gap: 12px;
+    --page-padding-block: 36px;
+    --page-padding-inline: 28px;
   }
 
-  .categories-panel {
-    gap: 52px;
-    padding: 44px 24px 188px;
-  }
-
-  .bookmark-category {
-    gap: 12px;
-  }
-
-  .bookmark-category__header {
-    width: 100%;
-  }
-
-  .bookmark-category > .bookmarks-grid {
-    width: 100%;
+  .categories-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
-@media (hover: hover) and (pointer: fine) {
-  html,
-  body,
-  html *,
-  body *,
-  html *::before,
-  html *::after,
-  body *::before,
-  body *::after,
-  .page,
-  .categories-panel,
-  .categories-panel:hover,
-  .categories-panel:active,
-  .bookmark-card,
-  .bookmark-card:hover,
-  .bookmark-card:active,
-  a,
-  a:hover,
-  a:active,
-  button,
-  button:hover,
-  button:active,
-  input,
-  textarea,
-  select,
-  :hover,
-  :active,
-  :focus,
-  :focus-visible,
-  [role="button"] {
-    cursor: none !important;
+@media (max-width: 860px) {
+  .page-header {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .search-box {
+    flex-basis: auto;
+    width: 100%;
+  }
+
+  .categories-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
-@media (max-width: 720px) {
+@media (max-width: 560px) {
   :root {
-    --page-padding-block: 20px;
-    --page-padding-inline: 20px;
-    --card-width: calc((100% - var(--grid-gap)) / 2);
+    --page-padding-block: 24px;
+    --page-padding-inline: 16px;
+    --layout-gap: 28px;
   }
 
-  .page {
-    padding: 12px 12px 0;
+  .page-title {
+    font-size: 42px;
   }
 
-  .categories-panel {
-    gap: 28px;
-    left: 12px;
-    padding: 20px 20px 152px;
-    right: 12px;
-    top: 12px;
+  .page-count {
+    font-size: 20px;
   }
 
-  .bookmark-category__title {
-    font-size: 40px;
-    letter-spacing: -0.4px;
-  }
-
-  .bookmark-card {
-    width: var(--card-width);
-    flex-basis: var(--card-width);
-  }
-
-  .page-title-bar {
-    display: none;
+  .categories-grid {
+    grid-template-columns: 1fr;
   }
 }

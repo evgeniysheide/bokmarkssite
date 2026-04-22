@@ -97,6 +97,9 @@ const createBookmarkRow = (bookmark) => {
   row.rel = "noreferrer noopener";
   row.title = bookmark.title;
 
+  const iconArea = document.createElement("span");
+  iconArea.className = "bookmark-row__favicon-area";
+
   const iconContainer = document.createElement("span");
   iconContainer.className = "bookmark-row__favicon-container";
 
@@ -120,7 +123,8 @@ const createBookmarkRow = (bookmark) => {
 
   content.append(title, action);
   iconContainer.append(icon);
-  row.append(iconContainer, content);
+  iconArea.append(iconContainer);
+  row.append(iconArea, content);
   return row;
 };
 

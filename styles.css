@@ -154,14 +154,24 @@ body {
   outline-offset: 2px;
 }
 
+.bookmark-row__favicon-container {
+  align-items: center;
+  align-self: stretch;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  display: flex;
+  flex: 0 0 auto;
+  justify-content: center;
+  padding: 8px;
+}
+
 .bookmark-row__favicon {
   border-radius: 4px;
   display: block;
-  flex: 0 0 24px;
-  height: 24px;
+  height: 16px;
   object-fit: cover;
   overflow: hidden;
-  width: 24px;
+  width: 16px;
 }
 
 .bookmark-row__content {

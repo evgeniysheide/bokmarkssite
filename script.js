@@ -4,6 +4,8 @@ const fallbackIcon =
 const categoriesGrid = document.querySelector("#categories-grid");
 const message = document.querySelector("#page-message");
 const bookmarksCount = document.querySelector("#bookmarks-count");
+let currentBookmarks = [];
+let currentColumnCount = 0;
 
 const getIconCandidates = (bookmark) => {
   const { origin, hostname } = new URL(bookmark.url);
@@ -113,12 +115,45 @@ const createCategoryCard = (category) => {
   return card;
 };
 
+const getColumnCount = () => {
+  if (window.matchMedia("(max-width: 560px)").matches) {
+    return 1;
+  }
+
+  if (window.matchMedia("(max-width: 860px)").matches) {
+    return 2;
+  }
+
+  if (window.matchMedia("(max-width: 1180px)").matches) {
+    return 3;
+  }
+
+  return 4;
+};
+
+const createCategoryColumns = (categories, columnCount) => {
+  const columns = Array.from({ length: columnCount }, () => {
+    const column = document.createElement("div");
+    column.className = "category-column";
+    return column;
+  });
+
+  categories.forEach((category, index) => {
+    columns[index % columnCount].append(createCategoryCard(category));
+  });
+
+  return columns;
+};
+
 const renderBookmarks = (bookmarks) => {
   const categories = groupBookmarksByCategory(bookmarks);
-  const cards = categories.map(createCategoryCard);
+  const columnCount = getColumnCount();
+  const columns = createCategoryColumns(categories, columnCount);
 
+  currentBookmarks = bookmarks;
+  currentColumnCount = columnCount;
   bookmarksCount.textContent = bookmarks.length;
-  categoriesGrid.replaceChildren(...cards);
+  categoriesGrid.replaceChildren(...columns);
 };
 
 const showMessage = (text) => {
@@ -161,3 +196,13 @@ const loadBookmarks = async () => {
 };
 
 loadBookmarks();
+
+window.addEventListener("resize", () => {
+  const columnCount = getColumnCount();
+
+  if (currentBookmarks.length === 0 || columnCount === currentColumnCount) {
+    return;
+  }
+
+  renderBookmarks(currentBookmarks);
+});

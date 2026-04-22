@@ -69,6 +69,10 @@ const groupBookmarksByCategory = (bookmarks) => {
 };
 
 const getCategorySortOrder = (category) => {
+  if (category.key === "General") {
+    return -1;
+  }
+
   const match = category.key.match(/^(\d+)/);
   return match ? Number(match[1]) : Number.MAX_SAFE_INTEGER;
 };

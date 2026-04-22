@@ -68,6 +68,23 @@ const groupBookmarksByCategory = (bookmarks) => {
   }));
 };
 
+const getCategorySortOrder = (category) => {
+  const match = category.key.match(/^(\d+)/);
+  return match ? Number(match[1]) : Number.MAX_SAFE_INTEGER;
+};
+
+const sortCategoriesByPrefix = (categories) =>
+  categories.slice().sort((a, b) => {
+    const orderA = getCategorySortOrder(a);
+    const orderB = getCategorySortOrder(b);
+
+    if (orderA !== orderB) {
+      return orderA - orderB;
+    }
+
+    return a.key.localeCompare(b.key);
+  });
+
 const createBookmarkRow = (bookmark) => {
   const row = document.createElement("a");
   row.className = "bookmark-row";
@@ -146,7 +163,7 @@ const createCategoryColumns = (categories, columnCount) => {
 };
 
 const renderBookmarks = (bookmarks) => {
-  const categories = groupBookmarksByCategory(bookmarks);
+  const categories = sortCategoriesByPrefix(groupBookmarksByCategory(bookmarks));
   const columnCount = getColumnCount();
   const columns = createCategoryColumns(categories, columnCount);
 

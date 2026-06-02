@@ -6,6 +6,7 @@ const message = document.querySelector("#page-message");
 const bookmarksCount = document.querySelector("#bookmarks-count");
 let currentBookmarks = [];
 let currentColumnCount = 0;
+const isLocalFileMode = window.location.protocol === "file:";
 
 const getIconCandidates = (bookmark) => {
   const { origin, hostname } = new URL(bookmark.url);
@@ -195,24 +196,57 @@ const clearMessage = () => {
   message.textContent = "";
 };
 
-const loadBookmarks = async () => {
-  try {
-    const response = await fetch("/api/bookmarks", {
-      headers: { Accept: "application/json" },
+const normalizeBookmarks = (bookmarks) =>
+  bookmarks
+    .filter((bookmark) => bookmark.hidden !== true && bookmark.url && bookmark.title)
+    .sort((a, b) => {
+      const orderA = Number.isFinite(a.order) ? a.order : Number.MAX_SAFE_INTEGER;
+      const orderB = Number.isFinite(b.order) ? b.order : Number.MAX_SAFE_INTEGER;
+      return orderA - orderB;
     });
 
-    if (!response.ok) {
-      throw new Error(`Request failed with status ${response.status}`);
+const loadLocalMockBookmarks = () =>
+  new Promise((resolve, reject) => {
+    if (Array.isArray(window.__BOOKMARKS_MOCK__)) {
+      resolve(window.__BOOKMARKS_MOCK__);
+      return;
     }
 
-    const bookmarks = await response.json();
-    const visibleBookmarks = bookmarks
-      .filter((bookmark) => bookmark.hidden !== true && bookmark.url && bookmark.title)
-      .sort((a, b) => {
-        const orderA = Number.isFinite(a.order) ? a.order : Number.MAX_SAFE_INTEGER;
-        const orderB = Number.isFinite(b.order) ? b.order : Number.MAX_SAFE_INTEGER;
-        return orderA - orderB;
-      });
+    const script = document.createElement("script");
+    script.src = "./mock-bookmarks.local.js";
+    script.async = true;
+
+    script.addEventListener("load", () => {
+      if (Array.isArray(window.__BOOKMARKS_MOCK__)) {
+        resolve(window.__BOOKMARKS_MOCK__);
+        return;
+      }
+
+      reject(new Error("mock-bookmarks.local.js loaded, but __BOOKMARKS_MOCK__ is missing"));
+    });
+
+    script.addEventListener("error", () => {
+      reject(new Error("mock-bookmarks.local.js not found"));
+    });
+
+    document.head.append(script);
+  });
+
+const loadBookmarks = async () => {
+  try {
+    const bookmarks = isLocalFileMode
+      ? await loadLocalMockBookmarks()
+      : await fetch("/api/bookmarks", {
+          headers: { Accept: "application/json" },
+        }).then((response) => {
+          if (!response.ok) {
+            throw new Error(`Request failed with status ${response.status}`);
+          }
+
+          return response.json();
+        });
+
+    const visibleBookmarks = normalizeBookmarks(bookmarks);
 
     clearMessage();
     renderBookmarks(visibleBookmarks);
@@ -220,7 +254,11 @@ const loadBookmarks = async () => {
     console.error("Failed to load bookmarks", error);
     bookmarksCount.textContent = "0";
     categoriesGrid.replaceChildren();
-    showMessage("Не удалось загрузить закладки. Попробуйте обновить страницу позже.");
+    showMessage(
+      isLocalFileMode
+        ? "Для локального предпросмотра добавьте файл mock-bookmarks.local.js рядом с index.html."
+        : "Не удалось загрузить закладки. Попробуйте обновить страницу позже."
+    );
   }
 };
 

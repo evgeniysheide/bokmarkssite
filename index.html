@@ -12,22 +12,26 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500&family=Montserrat:wght@400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500&family=Google+Sans+Flex:opsz,wght@8..144,400..700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
     <main class="page">
-      <header class="page-header">
-        <div class="page-heading">
-          <h1 class="page-title">Bookmarks</h1>
-          <span class="page-count" id="bookmarks-count">0</span>
-        </div>
-        <div class="search-box" aria-hidden="true">Search</div>
-      </header>
       <p class="page-message" id="page-message" hidden></p>
       <section class="categories-grid" id="categories-grid" aria-label="Список категорий"></section>
+      <header class="page-header">
+        <div class="page-heading">
+          <span class="page-heading__icon" aria-hidden="true"></span>
+          <h1 class="page-title">bookmarks</h1>
+          <span class="page-count" id="bookmarks-count">0</span>
+        </div>
+        <div class="search-box" aria-hidden="true">
+          <span class="search-box__icon" aria-hidden="true"></span>
+          <span>Search</span>
+        </div>
+      </header>
     </main>
     <script src="./script.js"></script>
   </body>

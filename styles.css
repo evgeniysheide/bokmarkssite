@@ -192,7 +192,8 @@ body {
   color: var(--text-primary);
   font-feature-settings: "ss02" 1;
   font-size: 20px;
-  font-weight: 600;
+  font-weight: 450;
+  font-variation-settings: "opsz" 14, "wght" 450;
   letter-spacing: -0.12px;
   line-height: 1;
   margin: 0;
@@ -270,7 +271,8 @@ body {
   flex: 1 1 auto;
   font-feature-settings: "ss02" 1, "calt" 0;
   font-size: 16px;
-  font-weight: 400;
+  font-weight: 300;
+  font-variation-settings: "opsz" 14, "wght" 300;
   letter-spacing: 0.32px;
   line-height: 1.2;
   min-width: 0;

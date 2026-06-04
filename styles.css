@@ -1,20 +1,19 @@
 :root {
-  --page-bg: #f9fafb;
-  --text-primary: #111827;
-  --text-secondary: #6b7280;
-  --text-accent: #1c274d;
-  --text-body: #111827;
-  --line: #e8eaec;
-  --line-strong: #e8eaec;
-  --card-bg: #f3f4f5;
-  --panel-bg: rgba(255, 255, 255, 0.2);
-  --radius-smooth: 28px;
+  --page-bg: #ffffff;
+  --text-primary: #22365c;
+  --text-secondary: rgba(255, 255, 255, 0.5);
+  --text-accent: #ffffff;
+  --text-body: #22365c;
+  --line: #eceef2;
+  --line-strong: #f3f4f5;
+  --card-bg: #f8f8f9;
+  --footer-bg: #22365c;
+  --footer-border: #ffffff;
+  --radius-smooth: 26px;
   --page-padding-block: 24px;
   --page-padding-inline: 24px;
-  --layout-gap: 20px;
   --category-gap: 16px;
-  --footer-height: 76px;
-  --categories-fade-size: 40px;
+  --footer-height: 64px;
 }
 
 * {
@@ -37,22 +36,20 @@ body {
 .page {
   display: flex;
   flex-direction: column;
-  gap: var(--layout-gap);
   min-height: 100vh;
   overflow: clip;
-  padding: var(--page-padding-block) var(--page-padding-inline) var(--footer-height);
+  padding: var(--page-padding-block) var(--page-padding-inline) calc(var(--footer-height) + 28px);
   width: 100%;
 }
 
 .page-header {
-  align-items: flex-start;
+  align-items: center;
   display: flex;
-  justify-content: space-between;
-  left: var(--page-padding-inline);
-  padding-top: 0;
+  gap: 8px;
+  left: 50%;
   position: fixed;
-  right: var(--page-padding-inline);
-  bottom: var(--page-padding-block);
+  transform: translateX(-50%);
+  bottom: 12px;
   width: auto;
   z-index: 10;
 }
@@ -60,78 +57,71 @@ body {
 .page-heading,
 .search-box {
   align-items: center;
-  background: rgba(255, 255, 255, 0.2);
-  border: 1px solid #ffffff;
+  background: var(--footer-bg);
   border-radius: 140px;
-  box-shadow: 0 6px 40px rgba(17, 24, 39, 0.08);
+  box-shadow: 0 0 0 2px var(--footer-border);
   display: inline-flex;
   flex: 0 0 auto;
-  height: 56px;
+  justify-content: center;
+  height: 52px;
 }
 
 .page-heading {
-  gap: 4px;
-  padding: 12px 20px;
+  gap: 2px;
+  width: 223px;
+  padding: 8px 16px;
 }
 
 .page-heading__icon {
   background:
-    center / 24px 24px no-repeat
-      url("./assets/bookmark-bottom.svg");
+    center / 28px 28px no-repeat
+      url("./assets/note.svg");
   display: block;
-  flex: 0 0 24px;
-  height: 24px;
-  width: 24px;
+  flex: 0 0 28px;
+  height: 28px;
+  width: 28px;
+}
+
+.page-heading__content {
+  align-items: baseline;
+  display: inline-flex;
+  gap: 8px;
+  padding-right: 2px;
 }
 
 .page-title {
   color: var(--text-accent);
   font-size: 24px;
-  font-variation-settings: "opsz" 14;
-  font-weight: 500;
+  font-variation-settings: "opsz" 14, "wght" 600;
+  font-weight: 600;
   letter-spacing: -0.24px;
   line-height: 1;
   margin: 0;
 }
 
 .page-count {
-  align-self: flex-start;
   color: var(--text-secondary);
-  font-feature-settings: "ss02" 1, "calt" 0;
-  font-size: 14px;
-  font-weight: 400;
-  letter-spacing: 0.32px;
+  font-feature-settings: "ss02" 1;
+  font-size: 20px;
+  font-variation-settings: "opsz" 14, "wght" 500;
+  font-weight: 500;
+  letter-spacing: -0.1px;
   line-height: 1;
-  margin-left: 2px;
-  margin-top: 0;
 }
 
 .search-box {
-  color: var(--text-secondary);
-  gap: 12px;
-  justify-content: flex-start;
-  min-width: 223px;
-  padding: 8px 20px 8px 20px;
+  aspect-ratio: 1;
+  padding: 0;
+  width: 52px;
 }
 
 .search-box__icon {
   background:
-    center / 24px 24px no-repeat
-      url("./assets/search-bottom.svg");
-  flex: 0 0 24px;
-  height: 24px;
-  width: 24px;
-}
-
-.search-box span:last-child {
-  font-feature-settings: "ss02" 1, "calt" 0;
-  font-size: 20px;
-  font-weight: 300;
-  font-variation-settings: "opsz" 14, "wght" 300;
-  letter-spacing: 0.4px;
-  line-height: 1.2;
-  transform: translateY(0);
-  white-space: nowrap;
+    center / 22px 22px no-repeat
+      url("./assets/search-normal.svg");
+  flex: 0 0 22px;
+  height: 22px;
+  width: 22px;
 }
 
 .page-message {
@@ -146,26 +136,10 @@ body {
   display: grid;
   gap: var(--category-gap);
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  height: calc(100vh - var(--page-padding-block) - var(--footer-height));
+  height: calc(100vh - (var(--page-padding-block) * 2));
   min-height: 0;
   overflow: auto;
   width: 100%;
-  -webkit-mask-image: linear-gradient(
-    to bottom,
-    #000 0,
-    #000 calc(100% - var(--categories-fade-size)),
-    transparent 100%
-  );
-  mask-image: linear-gradient(
-    to bottom,
-    #000 0,
-    #000 calc(100% - var(--categories-fade-size)),
-    transparent 100%
-  );
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-size: 100% 100%;
-  mask-size: 100% 100%;
 }
 
 .category-column {
@@ -181,10 +155,10 @@ body {
   border-radius: var(--radius-smooth);
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
   overflow: hidden;
   min-width: 0;
-  padding: 24px 28px 20px;
+  padding: 24px 28px 16px;
   width: 100%;
 }
 
@@ -192,9 +166,9 @@ body {
   color: var(--text-primary);
   font-feature-settings: "ss02" 1;
   font-size: 20px;
-  font-weight: 450;
-  font-variation-settings: "opsz" 14, "wght" 450;
-  letter-spacing: -0.12px;
+  font-weight: 500;
+  font-variation-settings: "opsz" 14, "wght" 500;
+  letter-spacing: -0.1px;
   line-height: 1;
   margin: 0;
   overflow: hidden;
@@ -271,9 +245,9 @@ body {
   flex: 1 1 auto;
   font-feature-settings: "ss02" 1, "calt" 0;
   font-size: 16px;
-  font-weight: 300;
-  font-variation-settings: "opsz" 14, "wght" 300;
-  letter-spacing: 0.32px;
+  font-weight: 350;
+  font-variation-settings: "opsz" 14, "wght" 350;
+  letter-spacing: 0.08px;
   line-height: 1.2;
   min-width: 0;
   overflow: hidden;
@@ -293,7 +267,7 @@ body {
 
 .bookmark-row:hover .bookmark-row__title,
 .bookmark-row:focus-visible .bookmark-row__title {
-  color: var(--text-secondary);
+  color: var(--text-body);
 }
 
 .bookmark-row:hover .bookmark-row__action,
@@ -313,13 +287,7 @@ body {
 
 @media (max-width: 860px) {
   .page-header {
-    align-items: stretch;
-    gap: 16px;
-    flex-direction: column;
-  }
-
-  .search-box {
-    width: 223px;
+    bottom: 16px;
   }
 
   .categories-grid {
@@ -330,23 +298,25 @@ body {
 @media (max-width: 560px) {
   :root {
     --page-padding-inline: 16px;
-    --layout-gap: 16px;
-    --footer-height: 92px;
+    --footer-height: 64px;
   }
 
   .page-header {
     bottom: 16px;
-    left: 16px;
-    right: 16px;
+    gap: 6px;
   }
 
   .page-heading,
   .search-box {
-    width: 100%;
+    height: 48px;
   }
 
   .page-title {
-    font-size: 22px;
+    font-size: 20px;
+  }
+
+  .page-count {
+    font-size: 18px;
   }
 
   .categories-grid {
